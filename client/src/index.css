@@ -2,23 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Default Cream Light Theme */
+  --bg-primary: #f4f4f4;
+  --bg-secondary: #191818;
+  --bg-tertiary: #ebdccf;
+  --card-bg: #ffffff;
+  --card-bg-elevated: #ebdccf;
+  --text-primary: #191818;
+  --text-primary-deep: #000000;
+  --text-secondary: rgba(25, 24, 24, 0.75);
+  --text-tertiary: rgba(25, 24, 24, 0.5);
+  --action-primary: #1b5def;
+  --action-hover: #4a7ff7;
+  --action-active: #0c42be;
+  --accent-signal: #e25327;
+  --border: rgba(25, 24, 24, 0.1);
+  --border-strong: rgba(25, 24, 24, 0.25);
+  --grid-line: rgba(25, 24, 24, 0.03);
+}
+
+[data-theme="dark"] {
+  /* Dark Tech Theme */
+  --bg-primary: #0a0b0d;
+  --bg-secondary: #e2e4e9;
+  --bg-tertiary: #121318;
+  --card-bg: #1a1d24;
+  --card-bg-elevated: #282c37;
+  --text-primary: #e2e4e9;
+  --text-primary-deep: #ffffff;
+  --text-secondary: rgba(226, 228, 233, 0.75);
+  --text-tertiary: rgba(226, 228, 233, 0.5);
+  --action-primary: #00f2fe;
+  --action-hover: #00c6ff;
+  --action-active: #00a8e8;
+  --accent-signal: #ffb020;
+  --border: rgba(226, 228, 233, 0.08);
+  --border-strong: rgba(226, 228, 233, 0.25);
+  --grid-line: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="matrix"] {
+  /* Cyber Matrix Theme */
+  --bg-primary: #020202;
+  --bg-secondary: #00ff00;
+  --bg-tertiary: #041404;
+  --card-bg: #060a06;
+  --card-bg-elevated: #0f1c0f;
+  --text-primary: #00ff00;
+  --text-primary-deep: #77ff77;
+  --text-secondary: rgba(0, 255, 0, 0.75);
+  --text-tertiary: rgba(0, 255, 0, 0.45);
+  --action-primary: #00ff00;
+  --action-hover: #55ff55;
+  --action-active: #00aa00;
+  --accent-signal: #ffffff;
+  --border: rgba(0, 255, 0, 0.15);
+  --border-strong: rgba(0, 255, 0, 0.35);
+  --grid-line: rgba(0, 255, 0, 0.04);
+}
+
 @layer base {
   body {
-    @apply bg-canvas text-body font-mono antialiased;
+    @apply bg-canvas text-body font-sans antialiased transition-colors duration-300;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-on-primary text-button-md rounded-sm px-[20px] py-[4px] h-[36px] flex items-center justify-center hover:bg-ink-deep transition-colors;
+    @apply bg-surface-dark text-canvas text-button-md rounded-sm px-[20px] py-[4px] h-[36px] flex items-center justify-center hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-mono font-bold border border-hairline;
   }
   .btn-secondary {
-    @apply bg-canvas text-ink border border-hairline-strong text-button-md rounded-sm px-[20px] py-[4px] flex items-center justify-center transition-colors;
+    @apply bg-canvas text-ink border border-hairline-strong text-button-md rounded-sm px-[20px] py-[4px] flex items-center justify-center hover:bg-surface-soft hover:border-accent hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-mono;
   }
   .section-container {
     @apply max-w-[960px] mx-auto py-section border-t border-hairline px-6 lg:px-0;
   }
   .link-inline {
-    @apply text-ink underline text-link-md hover:text-accent transition-colors;
+    @apply text-accent hover:text-ink transition-colors duration-200 font-mono relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-current after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:after:origin-left after:transition-transform after:duration-300;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--action-primary);
+}
+
+/* Tech Grid Backdrop */
+.tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+.glow-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, var(--action-primary), var(--accent-signal));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-card:hover::after {
+  opacity: 0.3;
 }
