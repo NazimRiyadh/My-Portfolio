@@ -237,10 +237,12 @@ html.smooth-scroll {
 
 /* Problem cards — left accent border with hover lift */
 .problem-card {
-  @apply border-l-2 border-accent bg-surface-soft/40 p-6 flex flex-col justify-between transition-all duration-300 relative;
+  @apply border-l-2 border-accent p-6 flex flex-col justify-between transition-all duration-300 relative;
+  background-color: rgba(var(--bg-tertiary-rgb), 0.4);
 }
 .problem-card:hover {
-  @apply -translate-y-0.5 bg-surface-soft/70 shadow-sm;
+  @apply -translate-y-0.5 shadow-sm;
+  background-color: rgba(var(--bg-tertiary-rgb), 0.7);
   border-left-color: var(--accent-signal);
 }
 
@@ -271,7 +273,8 @@ html.smooth-scroll {
 
 /* Back to top button */
 .back-to-top {
-  @apply fixed bottom-12 right-6 z-40 w-10 h-10 border border-hairline-strong bg-canvas/90 backdrop-blur-sm flex items-center justify-center text-mute hover:text-accent hover:border-accent transition-all duration-200 font-mono text-xs opacity-0 pointer-events-none translate-y-2;
+  @apply fixed bottom-12 right-6 z-40 w-10 h-10 border border-hairline-strong backdrop-blur-sm flex items-center justify-center text-mute hover:text-accent hover:border-accent transition-all duration-200 font-mono text-xs opacity-0 pointer-events-none translate-y-2;
+  background-color: rgba(var(--bg-primary-rgb), 0.9);
 }
 .back-to-top.visible {
   @apply opacity-100 pointer-events-auto translate-y-0;
@@ -376,3 +379,30 @@ body.custom-cursor-active label {
   color: var(--text-tertiary) !important;
   opacity: 0.15 !important;
 }
+
+/* CRT monitor styling for retro pixelated screens */
+.bg-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.06),
+    rgba(0, 255, 0, 0.02),
+    rgba(0, 0, 128, 0.06)
+  );
+  background-size: 100% 4px, 6px 100%;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+

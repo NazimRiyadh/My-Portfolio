@@ -82,21 +82,33 @@ function Home() {
                   <span className="text-mute">&gt; rendering vector space...</span>
                 </div>
                 
-                {/* ASCII art developer representation */}
-                <div className="my-auto text-center font-bold text-ink leading-relaxed select-none">
-                  <pre className="inline-block text-left text-[9px] md:text-[10px] text-accent/85 leading-normal">
-{`    +-----------------------+
-    |  .-----------------.  |
-    |  |  [NAZIM_OS]     |  |
-    |  |                 |  |
-    |  |   O   N   E     |  |
-    |  |   S   Y   S     |  |
-    |  |                 |  |
-    |  \`-----------------\`  |
-    +-----------------------+
-        ___/           \\___
-       /                   \\`}
-                  </pre>
+                {/* CRT Screen video representing the developer */}
+                <div className="relative my-auto w-full h-[180px] border border-hairline-strong bg-black overflow-hidden flex items-center justify-center rounded-none shadow-inner group">
+                  {/* CRT Scanline and Glass Reflection Overlays */}
+                  <div className="absolute inset-0 pointer-events-none z-10 bg-scanlines opacity-45" />
+                  <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-b from-transparent via-accent/5 to-transparent mix-blend-overlay animate-scanline" />
+                  
+                  {/* CRT Screen Radial Shadow Glow */}
+                  <div className="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
+
+                  {/* Adaptive Theme-colored Tint Overlay */}
+                  <div className="absolute inset-0 pointer-events-none z-10 bg-accent/20 mix-blend-color" />
+
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover grayscale contrast-150 brightness-[0.70] opacity-90"
+                    style={{ imageRendering: 'pixelated' }}
+                  >
+                    <source src="/typing.mp4" type="video/mp4" />
+                  </video>
+                  
+                  {/* Terminal Status Overlay */}
+                  <div className="absolute top-2 left-2 text-[8px] text-accent-signal bg-black/60 px-1 border border-accent-signal/30 font-bold tracking-wider animate-pulse uppercase">
+                    SYS_FEED // LIVE
+                  </div>
                 </div>
                 
                 <div className="border-t border-hairline-strong pt-4 flex justify-between items-center text-mute text-[10px]">
