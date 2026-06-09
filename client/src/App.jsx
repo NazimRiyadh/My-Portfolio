@@ -9,11 +9,12 @@ import About from './pages/About';
 import StatusBar from './components/StatusBar';
 import ShortcutsModal from './components/ShortcutsModal';
 import SettingsModal from './components/SettingsModal';
+import ConnectModal from './components/ConnectModal';
 import CustomCursor from './components/CustomCursor';
 import BackToTop from './components/BackToTop';
 import { useGNavigate } from './hooks/useGNavigate';
 
-function Navbar({ onToggleSettings }) {
+function Navbar({ onToggleSettings, onToggleConnect }) {
   return (
     <nav className="h-[56px] border-b border-hairline-strong bg-canvas/85 backdrop-blur-md sticky top-0 flex items-center justify-between px-6 lg:px-12 z-40 select-none font-mono">
       <div className="flex items-center space-x-12">
@@ -35,7 +36,13 @@ function Navbar({ onToggleSettings }) {
         >
           settings
         </button>
-        <a href="mailto:nazimriyadh001@gmail.com" className="text-body hover:text-accent transition-colors font-mono py-1">contact</a>
+        <button
+          onClick={onToggleConnect}
+          className="text-body hover:text-accent transition-colors font-mono py-1 relative group"
+        >
+          connect
+          <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" />
+        </button>
       </div>
     </nav>
   );
@@ -121,6 +128,7 @@ function AppContent() {
   const location = useLocation();
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isConnectOpen, setIsConnectOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [showGrid, setShowGrid] = useState(true);
   const [useCursor, setUseCursor] = useState(true);
@@ -161,7 +169,7 @@ function AppContent() {
   return (
     <div className={`min-h-screen flex flex-col bg-canvas text-body selection:bg-accent selection:text-canvas transition-colors duration-300 ${showGrid ? 'tech-grid' : ''}`}>
       {useCursor && <CustomCursor />}
-      <Navbar onToggleSettings={() => setIsSettingsOpen(true)} />
+      <Navbar onToggleSettings={() => setIsSettingsOpen(true)} onToggleConnect={() => setIsConnectOpen(true)} />
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -181,6 +189,7 @@ function AppContent() {
       />
       <BackToTop />
       <ShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
+      <ConnectModal isOpen={isConnectOpen} onClose={() => setIsConnectOpen(false)} />
       <SettingsModal 
         isOpen={isSettingsOpen} 
         onClose={() => setIsSettingsOpen(false)} 

@@ -5,9 +5,23 @@ import ScrollReveal from '../components/ScrollReveal';
 import CountUp from '../components/CountUp';
 import SectionNumber from '../components/SectionNumber';
 import GlowCard from '../components/GlowCard';
+import PathfindingVisualizer from '../components/PathfindingVisualizer';
+import { useDevStats } from '../hooks/useDevStats';
 import { staggerContainer, fadeUp, fadeIn, slideFromLeft, slideFromRight } from '../utils/motion';
 
+function StatValue({ value, loading, fallback = '—' }) {
+  if (loading) {
+    return (
+      <span className="inline-block w-12 h-5 bg-surface-soft animate-pulse rounded-none align-middle" />
+    );
+  }
+  if (value === null || value === undefined) return <span>{fallback}</span>;
+  return <span>{value}</span>;
+}
+
 function Home() {
+  const devStats = useDevStats();
+
   return (
     <div className="pb-24 selection:bg-accent selection:text-white">
       {/* SECTION 01 // HERO */}
@@ -50,7 +64,7 @@ function Home() {
             </motion.div>
           </div>
 
-          {/* Right Visual Panel (Terminal Mockup style avatar) */}
+          {/* Right Visual Panel */}
           <div className="w-full md:w-2/5 flex justify-center md:justify-end">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -82,18 +96,12 @@ function Home() {
                   <span className="text-mute">&gt; rendering vector space...</span>
                 </div>
                 
-                {/* CRT Screen video representing the developer */}
+                {/* CRT Screen */}
                 <div className="relative my-auto w-full h-[180px] border border-hairline-strong bg-black overflow-hidden flex items-center justify-center rounded-none shadow-inner group">
-                  {/* CRT Scanline and Glass Reflection Overlays */}
                   <div className="absolute inset-0 pointer-events-none z-10 bg-scanlines opacity-45" />
                   <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-b from-transparent via-accent/5 to-transparent mix-blend-overlay animate-scanline" />
-                  
-                  {/* CRT Screen Radial Shadow Glow */}
                   <div className="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
-
-                  {/* Adaptive Theme-colored Tint Overlay */}
                   <div className="absolute inset-0 pointer-events-none z-10 bg-accent/20 mix-blend-color" />
-
                   <video
                     autoPlay
                     loop
@@ -104,8 +112,6 @@ function Home() {
                   >
                     <source src="/typing.mp4" type="video/mp4" />
                   </video>
-                  
-                  {/* Terminal Status Overlay */}
                   <div className="absolute top-2 left-2 text-[8px] text-accent-signal bg-black/60 px-1 border border-accent-signal/30 font-bold tracking-wider animate-pulse uppercase">
                     SYS_FEED // LIVE
                   </div>
@@ -120,7 +126,7 @@ function Home() {
           </div>
         </div>
 
-        {/* Hero Section Down Arrow Indicator */}
+        {/* Hero Down Arrow */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -134,7 +140,7 @@ function Home() {
 
       {/* MAIN CONTAINER */}
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12 mt-20">
-        
+
         {/* SECTION 02 // FOCUS PROBLEMS */}
         <section className="mb-32 relative">
           <SectionNumber number="02" align="right" />
@@ -189,9 +195,9 @@ function Home() {
           </motion.div>
 
           <ScrollReveal>
-          <p className="text-xs text-mute leading-relaxed max-w-[800px] italic border-t border-hairline-strong pt-6">
-            "Most engineering teams try to patch scaling bottlenecks by increasing server resources. That's a temporary fix. True robustness is architectural, and that is what I design."
-          </p>
+            <p className="text-xs text-mute leading-relaxed max-w-[800px] italic border-t border-hairline-strong pt-6">
+              "Most engineering teams try to patch scaling bottlenecks by increasing server resources. That's a temporary fix. True robustness is architectural, and that is what I design."
+            </p>
           </ScrollReveal>
         </section>
 
@@ -410,7 +416,7 @@ function Home() {
           </motion.div>
         </section>
 
-        {/* SECTION 06 // LATEST WRITING / RESEARCH */}
+        {/* SECTION 06 // LATEST WRITING */}
         <section className="mb-32 relative">
           <SectionNumber number="06" align="right" />
 
@@ -508,10 +514,137 @@ function Home() {
           </motion.div>
         </section>
 
-        {/* SECTION 08 // CONTACT BOX */}
+        {/* SECTION 08 // NAZIM LAB */}
+        <section className="mb-32 relative">
+          <SectionNumber number="08" align="right" />
+
+          <ScrollReveal className="mb-12 text-left relative z-10">
+            <span className="section-label">// nazim.lab // interactive.experiments</span>
+            <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Nazim Lab</h2>
+            <p className="text-sm text-body max-w-[700px] leading-relaxed">
+              Algorithms running live in the browser. Each grid is generated randomly — watch A* expand its frontier and trace the shortest path.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+            {/* Pathfinding Visualizer — spans 2 cols */}
+            <motion.div
+              className="lg:col-span-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <PathfindingVisualizer />
+            </motion.div>
+
+            {/* Dev Stats Panel */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex flex-col gap-4"
+            >
+              {/* GitHub stats card */}
+              <div className="border border-hairline-strong bg-canvas font-mono">
+                <div className="h-8 bg-surface-soft border-b border-hairline-strong px-3 flex items-center justify-between select-none">
+                  <span className="text-[9px] text-mute uppercase tracking-widest">sys.metrics // github</span>
+                  <a
+                    href="https://github.com/NazimRiyadh"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[9px] text-accent hover:underline"
+                  >
+                    ↗ view
+                  </a>
+                </div>
+                <div className="p-4 space-y-3">
+                  {[
+                    {
+                      label: 'Public Repos',
+                      value: <StatValue value={devStats.github.repos} loading={devStats.github.loading} />,
+                    },
+                    {
+                      label: 'Followers',
+                      value: <StatValue value={devStats.github.followers} loading={devStats.github.loading} />,
+                    },
+                    {
+                      label: 'Total Stars',
+                      value: <StatValue value={devStats.github.stars} loading={devStats.github.loading} />,
+                    },
+                  ].map((row) => (
+                    <div key={row.label} className="flex items-center justify-between text-[11px]">
+                      <span className="text-mute">{row.label}</span>
+                      <span className="text-ink font-bold tabular-nums">{row.value}</span>
+                    </div>
+                  ))}
+                  {devStats.github.error && (
+                    <div className="text-[9px] text-accent-signal mt-1">⚠ {devStats.github.error}</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Codeforces stats card */}
+              <div className="border border-hairline-strong bg-canvas font-mono">
+                <div className="h-8 bg-surface-soft border-b border-hairline-strong px-3 flex items-center justify-between select-none">
+                  <span className="text-[9px] text-mute uppercase tracking-widest">sys.metrics // codeforces</span>
+                  <a
+                    href={`https://codeforces.com/profile/${devStats.codeforces.handle}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[9px] text-accent hover:underline"
+                  >
+                    ↗ view
+                  </a>
+                </div>
+                <div className="p-4 space-y-3">
+                  {[
+                    { label: 'Rating', value: devStats.codeforces.rating },
+                    { label: 'Rank', value: devStats.codeforces.rank },
+                    { label: 'Handle', value: devStats.codeforces.handle },
+                  ].map((row) => (
+                    <div key={row.label} className="flex items-center justify-between text-[11px]">
+                      <span className="text-mute">{row.label}</span>
+                      <span className="text-ink font-bold tabular-nums">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* LeetCode stats card */}
+              <div className="border border-hairline-strong bg-canvas font-mono">
+                <div className="h-8 bg-surface-soft border-b border-hairline-strong px-3 flex items-center justify-between select-none">
+                  <span className="text-[9px] text-mute uppercase tracking-widest">sys.metrics // leetcode</span>
+                  <a
+                    href={`https://leetcode.com/u/${devStats.leetcode.handle}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[9px] text-accent hover:underline"
+                  >
+                    ↗ view
+                  </a>
+                </div>
+                <div className="p-4 space-y-3">
+                  {[
+                    { label: 'Problems Solved', value: `${devStats.leetcode.solved}+` },
+                    { label: 'Handle', value: devStats.leetcode.handle },
+                  ].map((row) => (
+                    <div key={row.label} className="flex items-center justify-between text-[11px]">
+                      <span className="text-mute">{row.label}</span>
+                      <span className="text-ink font-bold tabular-nums">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SECTION 09 // CONTACT BOX */}
         <ScrollReveal as="section" className="mb-20" variants={fadeIn}>
           <div className="border border-hairline-strong bg-surface-soft/40 p-12 text-center relative overflow-hidden flex flex-col items-center glow-card card-brackets">
-            {/* Custom pixel block cross icon */}
+            {/* Pixel cross icon */}
             <div className="flex flex-col items-center justify-center space-y-1 mb-6">
               <div className="flex space-x-1">
                 <div className="w-2.5 h-2.5 bg-transparent" />

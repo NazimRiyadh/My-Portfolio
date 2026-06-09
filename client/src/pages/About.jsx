@@ -1,12 +1,100 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionNumber from '../components/SectionNumber';
 import CountUp from '../components/CountUp';
 import GlowCard from '../components/GlowCard';
 import { staggerContainer, fadeUp, slideFromRight } from '../utils/motion';
 
+const CAREER = [
+  {
+    id: 'intern',
+    date: 'Nov 2025 – Jan 2026',
+    tag: '[HEAD]',
+    tagClass: 'text-accent',
+    dotClass: 'border-accent',
+    title: 'Software Engineering Intern @ KT Informatik',
+    body: 'Architected semantic ATS pipelines and optimized container deployments for medical diagnostic applications.',
+    diffs: [
+      { type: 'add', text: '+ RAG semantic search pipelines (BM25 + dual-retrieval)' },
+      { type: 'add', text: '+ Redis caching & RabbitMQ worker ingestion (latency cut 50%)' },
+      { type: 'add', text: '+ Dockerized multi-stage container optimization (size cut 60%)' },
+      { type: 'mod', text: '~ Dual-LLM API calling schemas & response orchestrations' },
+    ],
+  },
+  {
+    id: 'aiub',
+    date: '2022 – 2025',
+    tag: null,
+    tagClass: '',
+    dotClass: 'border-hairline-strong',
+    title: 'American International University-Bangladesh',
+    body: 'B.Sc. in Computer Science Engineering. Grade Point Average: 3.96/4.00.',
+    diffs: [
+      { type: 'add', text: "+ Dean's Honor List & Dean's Award (All Semesters)" },
+      { type: 'add', text: '+ Coursework: Distributed Systems, Artificial Intelligence, Databases' },
+      { type: 'mod', text: '~ Academic research paper on dual-attention dermatological CNNs' },
+    ],
+  },
+  {
+    id: 'jnu',
+    date: '2020 – 2021',
+    tag: null,
+    tagClass: '',
+    dotClass: 'border-hairline-strong',
+    title: 'Jagannath University',
+    body: 'B.Sc. in Mathematics (Completed initial coursework before transferring to CSE).',
+    diffs: [
+      { type: 'add', text: '+ Foundations of Linear Algebra, Multivariable Calculus, Real Analysis' },
+      { type: 'mod', text: '~ Transitioned to Applied Computer Science and Software Engineering' },
+    ],
+  },
+  {
+    id: 'unmesh',
+    date: '2017 – Present',
+    tag: null,
+    tagClass: '',
+    dotClass: 'border-hairline-strong',
+    title: 'Executive Council Member @ Unmesh',
+    body: 'Directing seasonal operations, philanthropic program coordination, and public fundraisers for marginalized groups.',
+    diffs: [
+      { type: 'add', text: '+ Coordinated 10+ community seasonal distributions' },
+      { type: 'add', text: '+ Structured operational logs & donor database spreadsheets' },
+      { type: 'mod', text: '~ Mentored junior volunteers in project delivery execution' },
+    ],
+  },
+];
+
+const commitVariants = {
+  hidden: { opacity: 0, x: -24 },
+  visible: (i) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: i * 0.13,
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
+const diffLineVariants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: (j) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: j * 0.06, duration: 0.28, ease: 'easeOut' },
+  }),
+};
+
+const dotVariants = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 500, damping: 28 } },
+};
+
 function About() {
+  const [expanded, setExpanded] = useState(null);
+
   return (
     <div className="pb-24 selection:bg-accent selection:text-white">
       {/* SECTION 01 // HERO */}
@@ -38,7 +126,7 @@ function About() {
             </motion.div>
           </div>
 
-          {/* Right Visual Panel (Terminal Mockup style avatar) */}
+          {/* Right Visual Panel */}
           <div className="w-full md:w-2/5 flex justify-center md:justify-end">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -73,7 +161,7 @@ function About() {
           </div>
         </div>
 
-        {/* Stats horizontal columns at bottom of hero */}
+        {/* Stats */}
         <motion.div
           className="max-w-[1200px] mx-auto px-6 lg:px-12 border-t border-hairline pt-12"
           initial="hidden"
@@ -238,7 +326,7 @@ function About() {
           </motion.div>
         </section>
 
-        {/* SECTION 04 // CAREER COMMITS */}
+        {/* SECTION 04 // CAREER COMMITS — animated */}
         <section className="mb-32 relative">
           <SectionNumber number="04" align="right" />
 
@@ -250,95 +338,75 @@ function About() {
             </p>
           </ScrollReveal>
 
-          <div className="space-y-12 relative z-10">
-            
-            {/* Commit 01 */}
-            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={slideFromRight}>
-              {/* Timeline dot */}
-              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-accent bg-canvas" />
-              
-              <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
-                <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">Nov 2025 - Jan 2026</span>
-                <span className="text-accent font-bold uppercase tracking-wider">[HEAD]</span>
-              </div>
-              
-              <h3 className="text-base font-bold text-ink mb-1">Software Engineering Intern @ KT Informatik</h3>
-              <p className="text-xs text-body font-sans max-w-[800px] mb-4 leading-relaxed">
-                Architected semantic ATS pipelines and optimized container deployments for medical diagnostic applications.
-              </p>
+          <motion.div
+            className="space-y-0 relative z-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {CAREER.map((item, i) => (
+              <motion.div
+                key={item.id}
+                custom={i}
+                variants={commitVariants}
+                className="relative border-l border-hairline-strong pl-8 pb-10 group cursor-pointer"
+                onClick={() => setExpanded(expanded === item.id ? null : item.id)}
+              >
+                {/* Timeline dot */}
+                <motion.div
+                  variants={dotVariants}
+                  className={`absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 ${item.dotClass} bg-canvas transition-all duration-300 group-hover:border-accent`}
+                />
 
-              {/* Git Diff box */}
-              <div className="diff-block max-w-[700px]">
-                <div className="diff-add">+ RAG semantic search pipelines (BM25 + dual-retrieval)</div>
-                <div className="diff-add">+ Redis caching &amp; RabbitMQ worker ingestion (latency cut 50%)</div>
-                <div className="diff-add">+ Dockerized multi-stage container optimization (size cut 60%)</div>
-                <div className="diff-mod">~ Dual-LLM API calling schemas &amp; response orchestrations</div>
-              </div>
-            </ScrollReveal>
+                {/* Connector pulse on active */}
+                {i < CAREER.length - 1 && (
+                  <div className="absolute left-[-1px] top-3 w-[2px] h-full bg-gradient-to-b from-hairline-strong to-transparent" />
+                )}
 
-            {/* Commit 02 */}
-            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
-              {/* Timeline dot */}
-              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
-              
-              <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
-                <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">2022 - 2025</span>
-              </div>
-              
-              <h3 className="text-base font-bold text-ink mb-1">American International University-Bangladesh</h3>
-              <p className="text-xs text-body font-sans max-w-[800px] mb-4 leading-relaxed">
-                B.Sc. in Computer Science Engineering. Grade Point Average: 3.96/4.00.
-              </p>
+                <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
+                  <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">{item.date}</span>
+                  {item.tag && <span className={`${item.tagClass} font-bold uppercase tracking-wider`}>{item.tag}</span>}
+                </div>
 
-              <div className="diff-block max-w-[700px]">
-                <div className="diff-add">+ Dean's Honor List &amp; Dean's Award (All Semesters)</div>
-                <div className="diff-add">+ Coursework: Distributed Systems, Artificial Intelligence, Databases</div>
-                <div className="diff-mod">~ Academic research paper on dual-attention dermatological CNNs</div>
-              </div>
-            </ScrollReveal>
+                <h3 className="text-base font-bold text-ink mb-1 group-hover:text-accent transition-colors duration-200">{item.title}</h3>
+                <p className="text-xs text-body font-sans max-w-[800px] mb-4 leading-relaxed">{item.body}</p>
 
-            {/* Commit 03 */}
-            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
-              {/* Timeline dot */}
-              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
-              
-              <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
-                <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">2020 - 2021</span>
-              </div>
-              
-              <h3 className="text-base font-bold text-ink mb-1">Jagannath University</h3>
-              <p className="text-xs text-body font-sans max-w-[800px] mb-4 leading-relaxed">
-                B.Sc. in Mathematics (Completed initial coursework before transferring to CSE).
-              </p>
+                {/* Animated diff block — expands/collapses on click */}
+                <AnimatePresence initial={false}>
+                  {(expanded === item.id || expanded === null) && (
+                    <motion.div
+                      key={`diff-${item.id}`}
+                      initial={expanded !== null ? { height: 0, opacity: 0 } : false}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="diff-block max-w-[700px]">
+                        {item.diffs.map((d, j) => (
+                          <motion.div
+                            key={j}
+                            custom={j}
+                            variants={diffLineVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className={d.type === 'add' ? 'diff-add' : d.type === 'mod' ? 'diff-mod' : 'diff-del'}
+                          >
+                            {d.text}
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-              <div className="diff-block max-w-[700px]">
-                <div className="diff-add">+ Foundations of Linear Algebra, Multivariable Calculus, Real Analysis</div>
-                <div className="diff-mod">~ Transitioned to Applied Computer Science and Software Engineering</div>
-              </div>
-            </ScrollReveal>
-
-            {/* Commit 04 */}
-            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
-              {/* Timeline dot */}
-              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
-              
-              <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
-                <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">2017 - Present</span>
-              </div>
-              
-              <h3 className="text-base font-bold text-ink mb-1">Executive Council Member @ Unmesh</h3>
-              <p className="text-xs text-body font-sans max-w-[800px] mb-4 leading-relaxed">
-                Directing seasonal operations, philanthropic program coordination, and public fundraisers for marginalized groups.
-              </p>
-
-              <div className="diff-block max-w-[700px]">
-                <div className="diff-add">+ Coordinated 10+ community seasonal distributions</div>
-                <div className="diff-add">+ Structured operational logs &amp; donor database spreadsheets</div>
-                <div className="diff-mod">~ Mentored junior volunteers in project delivery execution</div>
-              </div>
-            </ScrollReveal>
-
-          </div>
+                {/* Collapse hint */}
+                <div className="mt-2 text-[9px] text-mute font-mono opacity-0 group-hover:opacity-60 transition-opacity duration-200">
+                  {expanded === item.id ? '▲ click to collapse' : '▼ click to expand'}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </section>
 
       </div>
