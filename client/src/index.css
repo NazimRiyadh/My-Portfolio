@@ -5,68 +5,120 @@
 :root {
   /* Cream Light Theme - Retro Classic Codedgar */
   --bg-primary: #fdfcfc;
+  --bg-primary-rgb: 253, 252, 252;
   --bg-secondary: #201d1d;
+  --bg-secondary-rgb: 32, 29, 29;
   --bg-tertiary: #f5f3ef;
+  --bg-tertiary-rgb: 245, 243, 239;
   --card-bg: #ffffff;
+  --card-bg-rgb: 255, 255, 255;
   --card-bg-elevated: #f5f3ef;
+  --card-bg-elevated-rgb: 245, 243, 239;
   --text-primary: #201d1d;
+  --text-primary-rgb: 32, 29, 29;
   --text-primary-deep: #000000;
+  --text-primary-deep-rgb: 0, 0, 0;
   --text-secondary: #4a4545;
+  --text-secondary-rgb: 74, 69, 69;
   --text-tertiary: #8f8585;
+  --text-tertiary-rgb: 143, 133, 133;
   --action-primary: #0055ff;
+  --action-primary-rgb: 0, 85, 255;
   --action-hover: #0044cc;
+  --action-hover-rgb: 0, 68, 204;
   --action-active: #0033aa;
+  --action-active-rgb: 0, 51, 170;
   --accent-signal: #ef4444;
+  --accent-signal-rgb: 239, 68, 68;
   --border: rgba(32, 29, 29, 0.08);
+  --border-rgb: 32, 29, 29;
   --border-strong: rgba(32, 29, 29, 0.18);
+  --border-strong-rgb: 32, 29, 29;
   --grid-line: rgba(32, 29, 29, 0.03);
 }
 
 [data-theme="dark"] {
   /* Deep Dark Theme - Sleek Console */
   --bg-primary: #0a0a0a;
+  --bg-primary-rgb: 10, 10, 10;
   --bg-secondary: #ffffff;
+  --bg-secondary-rgb: 255, 255, 255;
   --bg-tertiary: #141414;
+  --bg-tertiary-rgb: 20, 20, 20;
   --card-bg: #111111;
+  --card-bg-rgb: 17, 17, 17;
   --card-bg-elevated: #1a1a1a;
+  --card-bg-elevated-rgb: 26, 26, 26;
   --text-primary: #e5e5e5;
+  --text-primary-rgb: 229, 229, 229;
   --text-primary-deep: #ffffff;
+  --text-primary-deep-rgb: 255, 255, 255;
   --text-secondary: #a0a0a0;
+  --text-secondary-rgb: 160, 160, 160;
   --text-tertiary: #666666;
+  --text-tertiary-rgb: 102, 102, 102;
   --action-primary: #38bdf8;
+  --action-primary-rgb: 56, 189, 248;
   --action-hover: #0ea5e9;
+  --action-hover-rgb: 14, 165, 233;
   --action-active: #0284c7;
+  --action-active-rgb: 2, 132, 199;
   --accent-signal: #f43f5e;
+  --accent-signal-rgb: 244, 63, 94;
   --border: rgba(255, 255, 255, 0.08);
+  --border-rgb: 255, 255, 255;
   --border-strong: rgba(255, 255, 255, 0.18);
+  --border-strong-rgb: 255, 255, 255;
   --grid-line: rgba(255, 255, 255, 0.03);
 }
 
 [data-theme="matrix"] {
   /* Cyber Matrix Theme */
   --bg-primary: #020602;
-  --bg-secondary: #00FF66;
+  --bg-primary-rgb: 2, 6, 2;
+  --bg-secondary: #00ff66;
+  --bg-secondary-rgb: 0, 255, 102;
   --bg-tertiary: #041204;
+  --bg-tertiary-rgb: 4, 18, 4;
   --card-bg: #030803;
-  --card-bg-elevated: #081A08;
-  --text-primary: #00FF66;
-  --text-primary-deep: #33FF99;
+  --card-bg-rgb: 3, 8, 3;
+  --card-bg-elevated: #081a08;
+  --card-bg-elevated-rgb: 8, 26, 8;
+  --text-primary: #00ff66;
+  --text-primary-rgb: 0, 255, 102;
+  --text-primary-deep: #33ff99;
+  --text-primary-deep-rgb: 51, 255, 153;
   --text-secondary: rgba(0, 255, 102, 0.75);
+  --text-secondary-rgb: 0, 255, 102;
   --text-tertiary: rgba(0, 255, 102, 0.45);
-  --action-primary: #00FF66;
-  --action-hover: #33FF99;
-  --action-active: #00CC52;
+  --text-tertiary-rgb: 0, 255, 102;
+  --action-primary: #00ff66;
+  --action-primary-rgb: 0, 255, 102;
+  --action-hover: #33ff99;
+  --action-hover-rgb: 51, 255, 153;
+  --action-active: #00cc52;
+  --action-active-rgb: 0, 204, 82;
   --accent-signal: #ffffff;
+  --accent-signal-rgb: 255, 255, 255;
   --border: rgba(0, 255, 102, 0.15);
+  --border-rgb: 0, 255, 102;
   --border-strong: rgba(0, 255, 102, 0.35);
+  --border-strong-rgb: 0, 255, 102;
   --grid-line: rgba(0, 255, 102, 0.04);
+}
+
+html.smooth-scroll {
+  scroll-behavior: smooth;
 }
 
 @layer base {
   body {
     @apply bg-canvas text-body font-mono antialiased transition-colors duration-300;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-mono text-ink;
   }
 }
@@ -141,10 +193,168 @@
 
 /* Card base styles */
 .styled-card {
-  @apply border border-hairline-strong p-8 bg-surface-card rounded-none transition-all duration-300 relative;
+  @apply border border-hairline-strong p-8 bg-surface-card rounded-none transition-all duration-300 relative overflow-hidden;
 }
 .styled-card-hover {
   @apply hover:border-accent hover:-translate-y-1 hover:shadow-md;
+}
+
+/* Interactive glow cards — cursor expands on hover */
+.glow-card {
+  @apply transition-all duration-300 relative;
+}
+.glow-card::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--action-primary-rgb), 0.06), transparent 40%);
+}
+.glow-card:hover::before {
+  @apply opacity-100;
+}
+.glow-card:hover {
+  @apply border-accent -translate-y-1 shadow-md;
+}
+
+/* Corner bracket reveal on card hover */
+.card-brackets {
+  @apply relative;
+}
+.card-brackets::before,
+.card-brackets::after {
+  content: "";
+  @apply absolute w-3 h-3 opacity-0 transition-all duration-300 pointer-events-none border-accent;
+}
+.card-brackets::before {
+  @apply top-2 left-2 border-t-2 border-l-2;
+}
+.card-brackets::after {
+  @apply bottom-2 right-2 border-b-2 border-r-2;
+}
+.card-brackets:hover::before,
+.card-brackets:hover::after {
+  @apply opacity-100;
+}
+
+/* Problem cards — left accent border with hover lift */
+.problem-card {
+  @apply border-l-2 border-accent bg-surface-soft/40 p-6 flex flex-col justify-between transition-all duration-300 relative;
+}
+.problem-card:hover {
+  @apply -translate-y-0.5 bg-surface-soft/70 shadow-sm;
+  border-left-color: var(--accent-signal);
+}
+
+/* Link arrow slide micro-interaction */
+.link-arrow {
+  @apply inline-flex items-center gap-1 transition-all duration-200 font-bold;
+}
+.link-arrow .arrow {
+  @apply inline-block transition-transform duration-200;
+}
+.link-arrow:hover .arrow {
+  @apply translate-x-1;
+}
+.link-arrow:hover {
+  @apply text-accent;
+}
+
+/* Featured work card */
+.work-card {
+  @apply styled-card glow-card card-brackets flex flex-col justify-between cursor-default;
+}
+.work-card .browser-mockup {
+  @apply transition-transform duration-500;
+}
+.work-card:hover .browser-mockup {
+  @apply scale-[1.02];
+}
+
+/* Back to top button */
+.back-to-top {
+  @apply fixed bottom-12 right-6 z-40 w-10 h-10 border border-hairline-strong bg-canvas/90 backdrop-blur-sm flex items-center justify-center text-mute hover:text-accent hover:border-accent transition-all duration-200 font-mono text-xs opacity-0 pointer-events-none translate-y-2;
+}
+.back-to-top.visible {
+  @apply opacity-100 pointer-events-auto translate-y-0;
+}
+
+/* Section label pulse on scroll-in */
+@keyframes section-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.section-label {
+  @apply font-mono text-mute text-xs block mb-2;
+}
+
+/* Hero down arrow bounce */
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.hero-arrow {
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+/* Nav link hover underline slide */
+.nav-link-hover {
+  @apply relative;
+}
+.nav-link-hover::after {
+  content: "";
+  @apply absolute bottom-[-4px] left-0 w-0 h-[2px] bg-accent transition-all duration-300;
+}
+.nav-link-hover:hover::after {
+  @apply w-full;
+}
+
+/* Testimonial quote card */
+.quote-card {
+  @apply border-l-2 border-accent bg-surface-soft/40 p-8 flex flex-col justify-between relative transition-all duration-300;
+}
+.quote-card:hover {
+  @apply -translate-y-0.5 shadow-sm bg-surface-soft/60;
+}
+
+/* Writing card hover */
+.article-card {
+  @apply border border-hairline-strong bg-surface-soft/10 p-8 flex flex-col justify-between relative transition-all duration-300;
+}
+.article-card:hover {
+  @apply border-accent -translate-y-1 shadow-md bg-surface-soft/30;
+}
+
+/* Minimal custom cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+.custom-cursor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--action-primary);
+  transition: transform 0.12s ease-out, opacity 0.12s ease-out;
+}
+.custom-cursor.is-hover .custom-cursor-dot {
+  transform: scale(2);
+  opacity: 0.85;
+}
+
+/* Hide default cursor when custom cursor active */
+body.custom-cursor-active {
+  cursor: none;
+}
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active select,
+body.custom-cursor-active label {
+  cursor: none;
 }
 
 /* Decorative corner marks */
@@ -157,7 +367,12 @@
   @apply relative;
 }
 .nav-link-active::after {
-  content: '';
+  content: "";
   @apply absolute bottom-[-4px] left-0 w-full h-[2px] bg-accent-signal;
 }
 
+/* Faded Background Section Numbers to prevent text collision */
+.text-background-number {
+  color: var(--text-tertiary) !important;
+  opacity: 0.15 !important;
+}

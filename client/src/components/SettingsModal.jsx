@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SettingsModal({ isOpen, onClose, theme, setTheme, showGrid, setShowGrid, useCursor, setUseCursor }) {
+function SettingsModal({ isOpen, onClose, theme, setTheme, showGrid, setShowGrid, useCursor, setUseCursor, smoothScroll, setSmoothScroll }) {
   if (!isOpen) return null;
 
   return (
@@ -80,8 +80,8 @@ function SettingsModal({ isOpen, onClose, theme, setTheme, showGrid, setShowGrid
           {/* Custom Cursor Toggle */}
           <div className="flex justify-between items-center py-4 border-t border-hairline-strong">
             <div>
-              <span className="block text-white font-bold tracking-wider">03. HUD BRACKET CURSOR</span>
-              <span className="text-[11px] text-mute font-sans mt-0.5 block">Enable precise mouse crosshair.</span>
+              <span className="block text-white font-bold tracking-wider">03. CUSTOM CURSOR</span>
+              <span className="text-[11px] text-mute font-sans mt-0.5 block">Minimal dot cursor. Scales on links and buttons.</span>
             </div>
             <button 
               onClick={() => setUseCursor(!useCursor)}
@@ -92,6 +92,24 @@ function SettingsModal({ isOpen, onClose, theme, setTheme, showGrid, setShowGrid
               }`}
             >
               {useCursor ? 'ENABLED' : 'DISABLED'}
+            </button>
+          </div>
+
+          {/* Smooth Scroll Toggle */}
+          <div className="flex justify-between items-center py-4 border-t border-hairline-strong">
+            <div>
+              <span className="block text-white font-bold tracking-wider">04. SMOOTH SCROLL</span>
+              <span className="text-[11px] text-mute font-sans mt-0.5 block">Eased scrolling instead of native browser scroll.</span>
+            </div>
+            <button 
+              onClick={() => setSmoothScroll(!smoothScroll)}
+              className={`px-4 py-2 rounded-none border font-bold transition-all duration-200 ${
+                smoothScroll 
+                  ? 'border-accent text-accent bg-accent/10' 
+                  : 'border-hairline-strong text-body hover:border-accent/30'
+              }`}
+            >
+              {smoothScroll ? 'ENABLED' : 'DISABLED'}
             </button>
           </div>
         </div>

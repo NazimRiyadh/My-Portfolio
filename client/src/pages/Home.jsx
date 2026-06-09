@@ -1,25 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ScrollReveal from '../components/ScrollReveal';
+import CountUp from '../components/CountUp';
+import SectionNumber from '../components/SectionNumber';
+import GlowCard from '../components/GlowCard';
+import { staggerContainer, fadeUp, fadeIn, slideFromLeft, slideFromRight } from '../utils/motion';
 
 function Home() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' }
-    }
-  };
-
   return (
     <div className="pb-24 selection:bg-accent selection:text-white">
       {/* SECTION 01 // HERO */}
@@ -121,10 +109,15 @@ function Home() {
         </div>
 
         {/* Hero Section Down Arrow Indicator */}
-        <div className="w-full text-center mt-12 flex flex-col items-center justify-center text-mute select-none font-mono text-[10px]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="w-full text-center mt-12 flex flex-col items-center justify-center text-mute select-none font-mono text-[10px]"
+        >
           <span>0x01 // the_focus</span>
-          <span className="animate-bounce mt-2 text-xs text-accent">↓</span>
-        </div>
+          <span className="hero-arrow mt-2 text-xs text-accent">↓</span>
+        </motion.div>
       </section>
 
       {/* MAIN CONTAINER */}
@@ -132,20 +125,23 @@ function Home() {
         
         {/* SECTION 02 // FOCUS PROBLEMS */}
         <section className="mb-32 relative">
-          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            02
-          </div>
-          
-          <div className="mb-12 text-left">
-            <span className="font-mono text-mute text-xs block mb-2">// focus.challenges</span>
+          <SectionNumber number="02" align="right" />
+
+          <ScrollReveal className="mb-12 text-left relative z-10">
+            <span className="section-label">// focus.challenges</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Focus Areas</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               Modern systems suffer from silent, compound issues. I analyze bottlenecks at these critical layers to build responsive, robust applications.
             </p>
-          </div>
+          </ScrollReveal>
 
-          {/* Cards Grid matching codedgar.com red left-border cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.1)}
+          >
             {[
               {
                 idx: '01',
@@ -168,92 +164,95 @@ function Home() {
                 desc: 'Unoptimized layers and build caches bloat Docker image sizes, slowing down continuous integration and deployments.'
               }
             ].map((card, i) => (
-              <div key={i} className="border-l-2 border-accent bg-surface-soft/40 p-6 flex flex-col justify-between min-h-[200px] relative">
-                <span className="absolute top-4 right-4 font-mono text-[10px] text-accent-signal">[{card.idx}]</span>
+              <motion.div key={i} variants={fadeUp} className="problem-card min-h-[200px]">
                 <div>
-                  <h3 className="font-bold text-ink text-sm mb-3 mt-4">{card.title}</h3>
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-bold text-ink text-sm pr-4">{card.title}</h3>
+                    <span className="font-mono text-[10px] text-accent-signal shrink-0">[{card.idx}]</span>
+                  </div>
                   <p className="text-body text-xs leading-relaxed font-sans">{card.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
+          <ScrollReveal>
           <p className="text-xs text-mute leading-relaxed max-w-[800px] italic border-t border-hairline-strong pt-6">
             "Most engineering teams try to patch scaling bottlenecks by increasing server resources. That's a temporary fix. True robustness is architectural, and that is what I design."
           </p>
+          </ScrollReveal>
         </section>
 
         {/* SECTION 03 // WHO I AM */}
         <section className="mb-32 relative">
-          <div className="absolute left-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            03
-          </div>
-          
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            {/* Left Narrative */}
-            <div className="w-full md:w-3/5 text-left z-10">
-              <span className="font-mono text-mute text-xs block mb-2">// section.about</span>
+          <SectionNumber number="03" align="left" />
+
+          <div className="flex flex-col md:flex-row gap-12 items-center relative z-10">
+            <ScrollReveal className="w-full md:w-3/5 text-left" variants={slideFromLeft}>
+              <span className="section-label">// section.about</span>
               <h2 className="text-3xl font-bold tracking-tight text-ink mb-6">Who I Am</h2>
               <p className="text-sm md:text-base text-body mb-8 leading-relaxed">
                 I graduated from American International University-Bangladesh with a B.Sc. in Computer Science Engineering (3.96/4.00 CGPA). I focus on distributed backends, AI retrieval systems, and infrastructure optimization, delivering production-grade software engineered with care and intention.
               </p>
-              <Link to="/about" className="btn-secondary inline-block">
-                More about me &rarr;
+              <Link to="/about" className="btn-secondary inline-block link-arrow">
+                More about me <span className="arrow">&rarr;</span>
               </Link>
-            </div>
+            </ScrollReveal>
 
-            {/* Right Stats Grid */}
-            <div className="w-full md:w-2/5">
+            <ScrollReveal className="w-full md:w-2/5" variants={slideFromRight}>
               <div className="border border-hairline-strong p-8 bg-surface-soft/30 grid grid-cols-2 gap-8 relative overflow-hidden font-mono">
                 <div>
                   <div className="text-2xl md:text-3xl font-bold text-ink">
-                    3.96<span className="text-accent font-bold">+</span>
+                    <CountUp end={3.96} decimals={2} /><span className="text-accent font-bold">+</span>
                   </div>
                   <div className="text-[10px] text-mute uppercase mt-1">B.Sc. CGPA</div>
                   <div className="text-[9px] text-mute/60 font-sans mt-0.5">Dean's Honor List</div>
                 </div>
                 <div>
                   <div className="text-2xl md:text-3xl font-bold text-ink">
-                    50<span className="text-accent font-bold">%</span>
+                    <CountUp end={50} /><span className="text-accent font-bold">%</span>
                   </div>
                   <div className="text-[10px] text-mute uppercase mt-1">Latency cut</div>
                   <div className="text-[9px] text-mute/60 font-sans mt-0.5">Redis/RabbitMQ tier</div>
                 </div>
                 <div>
                   <div className="text-2xl md:text-3xl font-bold text-ink">
-                    96.9<span className="text-accent font-bold">%</span>
+                    <CountUp end={96.9} decimals={1} /><span className="text-accent font-bold">%</span>
                   </div>
                   <div className="text-[10px] text-mute uppercase mt-1">Macro-F1</div>
                   <div className="text-[9px] text-mute/60 font-sans mt-0.5">Dermatological AI</div>
                 </div>
                 <div>
                   <div className="text-2xl md:text-3xl font-bold text-ink">
-                    60<span className="text-accent font-bold">%</span>
+                    <CountUp end={60} /><span className="text-accent font-bold">%</span>
                   </div>
                   <div className="text-[10px] text-mute uppercase mt-1">Size Cut</div>
                   <div className="text-[9px] text-mute/60 font-sans mt-0.5">Docker optimizations</div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* SECTION 04 // FEATURED WORK */}
         <section className="mb-32 relative">
-          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            04
-          </div>
-          
-          <div className="mb-12 text-left">
-            <span className="font-mono text-mute text-xs block mb-2">// section.work</span>
+          <SectionNumber number="04" align="right" />
+
+          <ScrollReveal className="mb-12 text-left relative z-10">
+            <span className="section-label">// section.work</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Featured Work</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               A select portfolio of engineering systems and architectural components built to solve structural problems.
             </p>
-          </div>
+          </ScrollReveal>
 
-          {/* 3-Column Projects Row Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.12)}
+          >
             {[
               {
                 title: 'Owlpi',
@@ -280,7 +279,8 @@ function Home() {
                 address: 'system://research.eskinnet'
               }
             ].map((proj, i) => (
-              <div key={i} className="styled-card flex flex-col justify-between min-h-[500px]">
+              <motion.div key={i} variants={fadeUp}>
+              <GlowCard className="work-card min-h-[500px]">
                 {/* Top Half Mockup Screenshot */}
                 <div className="browser-mockup h-[200px] mb-6">
                   <div className="browser-header">
@@ -317,36 +317,41 @@ function Home() {
                       <span key={tIdx} className="text-[9px] text-mute bg-surface-soft px-2 py-0.5 border border-hairline">{tag}</span>
                     ))}
                   </div>
-                  <Link to="/projects" className="text-xs text-accent hover:underline font-bold inline-block">
-                    View case study &rarr;
+                  <Link to="/projects" className="text-xs link-arrow">
+                    View case study <span className="arrow">&rarr;</span>
                   </Link>
                 </div>
-              </div>
+              </GlowCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="text-center mt-12">
+          <ScrollReveal className="text-center mt-12">
             <Link to="/projects" className="btn-primary inline-block">
               View all projects
             </Link>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* SECTION 05 // SERVICES */}
         <section className="mb-32 relative">
-          <div className="absolute left-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            05
-          </div>
-          
-          <div className="mb-12 text-left z-10 relative">
-            <span className="font-mono text-mute text-xs block mb-2">// section.services</span>
+          <SectionNumber number="05" align="left" />
+
+          <ScrollReveal className="mb-12 text-left z-10 relative">
+            <span className="section-label">// section.services</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">How I Help</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               Three ways to work together, depending on your project scale and infrastructure needs.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.1)}
+          >
             {[
               {
                 title: 'High-End Backend Systems',
@@ -382,30 +387,36 @@ function Home() {
                 )
               }
             ].map((service, i) => (
-              <div key={i} className="styled-card styled-card-hover p-8">
-                {service.blocks}
-                <h3 className="text-base font-bold text-ink mb-4">{service.title}</h3>
-                <p className="text-xs text-body leading-relaxed font-sans">{service.desc}</p>
-              </div>
+              <motion.div key={i} variants={fadeUp}>
+                <GlowCard className="styled-card styled-card-hover card-brackets p-8">
+                  {service.blocks}
+                  <h3 className="text-base font-bold text-ink mb-4">{service.title}</h3>
+                  <p className="text-xs text-body leading-relaxed font-sans">{service.desc}</p>
+                </GlowCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* SECTION 06 // LATEST WRITING / RESEARCH */}
         <section className="mb-32 relative">
-          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            06
-          </div>
-          
-          <div className="mb-12 text-left">
-            <span className="font-mono text-mute text-xs block mb-2">// section.writing</span>
+          <SectionNumber number="06" align="right" />
+
+          <ScrollReveal className="mb-12 text-left relative z-10">
+            <span className="section-label">// section.writing</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Latest Writing</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               Documenting technical insights on systems architecture, mathematical findings, and applied artificial intelligence research.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.12)}
+          >
             {[
               {
                 title: 'ESkinNetBD: Transparent Skin Disease Diagnosis Framework',
@@ -420,7 +431,7 @@ function Home() {
                 tags: ['Machine Learning', 'Data Science', 'Optuna']
               }
             ].map((post, i) => (
-              <div key={i} className="border border-hairline-strong p-8 bg-surface-soft/20 relative flex flex-col justify-between min-h-[260px]">
+              <motion.div key={i} variants={fadeUp} className="article-card min-h-[260px]">
                 <div>
                   <span className="text-[10px] text-mute font-mono block mb-2">{post.date}</span>
                   <h3 className="text-base font-bold text-ink mb-3">{post.title}</h3>
@@ -431,32 +442,36 @@ function Home() {
                     <span key={tIdx} className="text-[9px] text-mute bg-surface-soft px-2 py-0.5 border border-hairline">{tag}</span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="text-center">
-            <Link to="/research" className="btn-secondary inline-block">
-              Read all research
+          <ScrollReveal className="text-center relative z-10">
+            <Link to="/writing" className="btn-secondary inline-block link-arrow">
+              Read all articles <span className="arrow">&rarr;</span>
             </Link>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* SECTION 07 // TESTIMONIALS */}
         <section className="mb-32 relative">
-          <div className="absolute left-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            07
-          </div>
-          
-          <div className="mb-12 text-left z-10 relative">
-            <span className="font-mono text-mute text-xs block mb-2">// section.proof</span>
+          <SectionNumber number="07" align="left" />
+
+          <ScrollReveal className="mb-12 text-left z-10 relative">
+            <span className="section-label">// section.proof</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">What Others Say</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               Feedback from academic advisors, code collaborators, and project coordinators.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.15)}
+          >
             {[
               {
                 text: 'Nazim demonstrated exceptional capabilities during his tenure, designing and implementing systems that greatly optimized our pipeline bottlenecks and showing absolute focus on clean documentation.',
@@ -469,21 +484,21 @@ function Home() {
                 role: 'Applied Artificial Intelligence Lab'
               }
             ].map((quote, i) => (
-              <div key={i} className="border-l-2 border-accent bg-surface-soft/40 p-8 flex flex-col justify-between relative">
+              <motion.div key={i} variants={fadeUp} className="quote-card">
                 <span className="text-2xl text-accent font-bold absolute top-4 left-6 select-none opacity-20">"</span>
                 <p className="text-xs text-body italic leading-relaxed font-sans mb-6 mt-4 pl-4">{quote.text}</p>
                 <div className="pl-4 font-mono">
                   <strong className="text-xs text-ink block">{quote.author}</strong>
                   <span className="text-[10px] text-mute">{quote.role}</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* SECTION 08 // CONTACT BOX */}
-        <section className="mb-20">
-          <div className="border border-hairline-strong bg-surface-soft/40 p-12 text-center relative overflow-hidden flex flex-col items-center">
+        <ScrollReveal as="section" className="mb-20" variants={fadeIn}>
+          <div className="border border-hairline-strong bg-surface-soft/40 p-12 text-center relative overflow-hidden flex flex-col items-center glow-card card-brackets">
             {/* Custom pixel block cross icon */}
             <div className="flex flex-col items-center justify-center space-y-1 mb-6">
               <div className="flex space-x-1">
@@ -517,7 +532,7 @@ function Home() {
               Establish Handshake
             </a>
           </div>
-        </section>
+        </ScrollReveal>
         
       </div>
     </div>

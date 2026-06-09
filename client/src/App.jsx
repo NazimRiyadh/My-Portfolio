@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Research from './pages/Research';
+import Writing from './pages/Writing';
 import About from './pages/About';
 import StatusBar from './components/StatusBar';
 import ShortcutsModal from './components/ShortcutsModal';
 import SettingsModal from './components/SettingsModal';
 import CustomCursor from './components/CustomCursor';
+import BackToTop from './components/BackToTop';
+import { useGNavigate } from './hooks/useGNavigate';
 
 function Navbar({ onToggleSettings }) {
   return (
@@ -17,10 +21,11 @@ function Navbar({ onToggleSettings }) {
           <span>nazim.riyadh</span>
         </Link>
         <div className="hidden md:flex space-x-8 text-[13px] font-bold">
-          <NavLink to="/" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative ${isActive ? 'nav-link-active text-ink' : ''}`}>home</NavLink>
-          <NavLink to="/projects" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative ${isActive ? 'nav-link-active text-ink' : ''}`}>projects</NavLink>
-          <NavLink to="/research" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative ${isActive ? 'nav-link-active text-ink' : ''}`}>research</NavLink>
-          <NavLink to="/about" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative ${isActive ? 'nav-link-active text-ink' : ''}`}>about</NavLink>
+          <NavLink to="/" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative nav-link-hover ${isActive ? 'nav-link-active text-ink' : ''}`}>home</NavLink>
+          <NavLink to="/projects" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative nav-link-hover ${isActive ? 'nav-link-active text-ink' : ''}`}>projects</NavLink>
+          <NavLink to="/research" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative nav-link-hover ${isActive ? 'nav-link-active text-ink' : ''}`}>research</NavLink>
+          <NavLink to="/writing" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative nav-link-hover ${isActive ? 'nav-link-active text-ink' : ''}`}>writing</NavLink>
+          <NavLink to="/about" className={({ isActive }) => `text-body hover:text-accent transition-colors font-mono py-1 relative nav-link-hover ${isActive ? 'nav-link-active text-ink' : ''}`}>about</NavLink>
         </div>
       </div>
       <div className="flex items-center space-x-6 text-[13px] font-bold">
@@ -68,7 +73,8 @@ function Footer() {
             <div className="font-bold text-ink mb-3 uppercase tracking-wider">// work</div>
             <ul className="space-y-2">
               <li><Link to="/projects" className="hover:text-accent transition-colors">projects</Link></li>
-              <li><Link to="/research" className="hover:text-accent transition-colors">writing</Link></li>
+              <li><Link to="/research" className="hover:text-accent transition-colors">research</Link></li>
+              <li><Link to="/writing" className="hover:text-accent transition-colors">writing</Link></li>
             </ul>
           </div>
           <div>
@@ -98,17 +104,43 @@ function Footer() {
   );
 }
 
+function PageTransition({ children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function AppContent() {
+  const location = useLocation();
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [showGrid, setShowGrid] = useState(true);
   const [useCursor, setUseCursor] = useState(true);
+  const [smoothScroll, setSmoothScroll] = useState(true);
+
+  useGNavigate();
 
   // Sync theme changes with html element
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('smooth-scroll', smoothScroll);
+  }, [smoothScroll]);
+
+  useEffect(() => {
+    document.body.classList.toggle('custom-cursor-active', useCursor);
+    return () => document.body.classList.remove('custom-cursor-active');
+  }, [useCursor]);
 
   // Global keydown listeners for shortcuts help and settings panels
   useEffect(() => {
@@ -131,12 +163,15 @@ function AppContent() {
       {useCursor && <CustomCursor />}
       <Navbar onToggleSettings={() => setIsSettingsOpen(true)} />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/research" element={<Research />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+            <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+            <Route path="/research" element={<PageTransition><Research /></PageTransition>} />
+            <Route path="/writing" element={<PageTransition><Writing /></PageTransition>} />
+            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          </Routes>
+        </AnimatePresence>
       </main>
       <Footer />
       <StatusBar 
@@ -144,6 +179,7 @@ function AppContent() {
         onToggleSettings={() => setIsSettingsOpen(true)}
         theme={theme}
       />
+      <BackToTop />
       <ShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
       <SettingsModal 
         isOpen={isSettingsOpen} 
@@ -154,6 +190,8 @@ function AppContent() {
         setShowGrid={setShowGrid}
         useCursor={useCursor}
         setUseCursor={setUseCursor}
+        smoothScroll={smoothScroll}
+        setSmoothScroll={setSmoothScroll}
       />
     </div>
   );

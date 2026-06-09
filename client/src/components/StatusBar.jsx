@@ -53,6 +53,7 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
       case '/': return '// home.init';
       case '/projects': return '// work.projects';
       case '/research': return '// academic.research';
+      case '/writing': return '// tech.writing';
       case '/about': return '// human.entity';
       default: return '// system';
     }
@@ -62,7 +63,8 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
     switch (location.pathname) {
       case '/': return 'VISITOR';
       case '/projects': return 'EXPLORING';
-      case '/research': return 'READING';
+      case '/research': return 'RESEARCHING';
+      case '/writing': return 'READING';
       case '/about': return 'INSPECTING';
       default: return 'GUEST';
     }
@@ -86,7 +88,8 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
 
       {/* Simulated Media Player */}
       <div className="hidden md:flex items-center space-x-2.5 text-mute truncate max-w-[280px] text-[10px] bg-surface-soft px-3 py-1 border border-hairline border-dashed">
-        <span className="text-accent text-[12px] animate-pulse">▶</span>
+        <span className="text-accent text-[11px]">♪</span>
+        <span className="text-accent text-[10px]">▶</span>
         <span className="truncate tracking-wide text-ink">{tracks[trackIndex]}</span>
       </div>
 

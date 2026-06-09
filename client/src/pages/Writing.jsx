@@ -5,35 +5,43 @@ import SectionNumber from "../components/SectionNumber";
 import GlowCard from "../components/GlowCard";
 import { staggerContainer, fadeUp } from "../utils/motion";
 
-function Research() {
+function Writing() {
   const articles = [
     {
-      title:
-        "ESkinNetBD: Dual-Attention EfficientNet for Transparent Skin Disease Diagnosis",
-      date: "Dec 2024",
-      area: "Computer Vision",
-      status: "Published",
-      desc: "Architected a CNN framework using EfficientNetB2 and Convolutional Block Attention Module (CBAM) to classify dermatological conditions across six categories using the SkinDisNet Bangladeshi dataset. Mitigated dataset imbalances through focal loss and label smoothing.",
-      tags: ["Medical AI", "Computer Vision", "PyTorch", "Grad-CAM"],
-      contributions: [
-        "EfficientNetB2 backbone with CBAM dual-attention extraction",
-        "Balanced training via focal loss & label smoothing augmentations",
-        "Attained a 96.9% macro-F1 score on localized validation sets",
-        "Grad-CAM/Grad-CAM++ explainability maps for clinical transparency",
+      title: "How I Built a Semantic ATS Using RAG and Dual-LLM Orchestration",
+      date: "Jan 2026",
+      readTime: "6 min read",
+      desc: "An in-depth look at building an automated candidate ranking system. Explains hybrid search using BM25 alongside dense vector retrieval, and caching latency cut strategies.",
+      tags: ["LLM", "RAG", "Redis", "Python"],
+      bullets: [
+        "BM25 and cosine vector similarity weight tuning",
+        "Redis/RabbitMQ query caching layers cutting load",
+        "Neo4j knowledge graph entity connection maps",
       ],
     },
     {
-      title: "Chlorophyll Detection via CalCOFI Oceanic Data Analysis",
-      date: "Oct 2024",
-      area: "Machine Learning",
-      status: "Published",
-      desc: "Designed a regression analysis pipeline to predict ocean chlorophyll levels. Evaluated baseline classifiers, using Optuna to tune hyperparameter spaces for a Random Forest Regressor.",
-      tags: ["Environmental AI", "Machine Learning", "Data Science", "Optuna"],
-      contributions: [
-        "Outperformed 10 alternative baseline regression classifiers",
-        "Conducted Optuna hyperparameter sweeps for Random Forest Regressor",
-        "Achieved verified R² score of 0.7889 for ocean metrics tracking",
-        "Identified key sea surface temperature correlation weights",
+      title: "Why RabbitMQ and Event-Driven Pipelines Saved Our API Monitors",
+      date: "Nov 2025",
+      readTime: "4 min read",
+      desc: "Synchronous ingestion models choke under heavy payload bursts. Discussing the migration to decoupled worker queues and exponential backoff retry flows.",
+      tags: ["RabbitMQ", "System Design", "Event-Driven"],
+      bullets: [
+        "Producer-consumer scaling thresholds under load",
+        "Dead letter queue and worker retry boundaries",
+        "Database write batching algorithms",
+      ],
+    },
+    {
+      title:
+        "Redis is Not Always the Answer: Cache Anti-Patterns in Production",
+      date: "Aug 2025",
+      readTime: "5 min read",
+      desc: "Analyzing cases where caching introduces write-amplification and data stale states. Tips on setting correct TTL values and cache invalidation policies.",
+      tags: ["Redis", "Caching", "Database"],
+      bullets: [
+        "Cache-aside vs write-through latency comparison",
+        "Stampede mitigation using mutex locks",
+        "Stale-state recovery algorithms",
       ],
     },
   ];
@@ -49,18 +57,18 @@ function Research() {
             transition={{ duration: 0.55 }}
           >
           <span className="font-mono text-mute text-[11px] block mb-2 select-none">
-            // page.research
+            // page.writing
           </span>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-6 leading-none">
-            Research
+            Writing
           </h1>
           <p className="text-sm md:text-base text-body max-w-[600px] mb-8 leading-relaxed font-sans">
-            Academic papers, models evaluations, and neural explainability maps
-            on applied AI and computer vision.
+            Technical essays, developer guides, and post-mortems on systems
+            engineering and AI integration.
           </p>
           <div className="border border-accent-signal/30 text-accent-signal bg-accent-signal/5 px-4 py-1.5 font-mono text-[10px] uppercase font-bold tracking-wider inline-flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-accent-signal animate-pulse" />
-            <span>Limited Availability · Q2 2026</span>
+            <span>Articles &amp; Build Logs</span>
           </div>
           </motion.div>
         </div>
@@ -68,14 +76,14 @@ function Research() {
 
       {/* MAIN CONTAINER */}
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12 mt-20">
-        {/* SECTION 02 // RESEARCH ARTICLES LIST */}
+        {/* SECTION 02 // ARTICLES GRID */}
         <section className="relative">
           <SectionNumber number="02" align="right" />
 
           <ScrollReveal className="mb-12 text-left relative z-10">
             <span className="section-label">// section.articles</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">
-              Latest Research
+              Latest Articles
             </h2>
           </ScrollReveal>
 
@@ -88,34 +96,26 @@ function Research() {
           >
             {articles.map((post, i) => (
               <motion.div key={i} variants={fadeUp}>
-              <GlowCard className="article-card min-h-[460px] p-8">
+              <GlowCard className="article-card min-h-[420px] p-8">
                 <div>
                   <div className="flex justify-between items-center text-[10px] font-mono mb-4">
                     <span className="text-accent bg-accent/5 px-2.5 py-0.5 border border-hairline-strong font-bold">
                       {post.date}
                     </span>
-                    <span className="text-mute uppercase tracking-wider">
-                      {post.area}
-                    </span>
+                    <span className="text-mute">{post.readTime}</span>
                   </div>
 
                   <h3 className="text-lg font-bold text-ink mb-3 leading-snug">
                     {post.title}
                   </h3>
-                  <div className="text-[11px] text-accent font-mono mb-4">
-                    &gt; Status: {post.status}
-                  </div>
                   <p className="text-xs text-body leading-relaxed mb-6 font-sans">
                     {post.desc}
                   </p>
 
-                  {/* Plus Bullet Points for methodology/results */}
+                  {/* Plus Bullet Points */}
                   <div className="bg-surface-soft/40 p-4 border border-hairline-strong font-mono text-xs rounded-none mb-6">
-                    <div className="text-ink font-bold mb-2 uppercase tracking-wide text-[10px]">
-                      // research_highlights:
-                    </div>
                     <ul className="space-y-1.5 text-body text-[11px]">
-                      {post.contributions.map((bullet, idx) => (
+                      {post.bullets.map((bullet, idx) => (
                         <li key={idx} className="flex items-start">
                           <span className="text-accent font-bold mr-2 select-none">
                             +
@@ -139,12 +139,10 @@ function Research() {
                     ))}
                   </div>
                   <a
-                    href="https://github.com/NazimRiyadh"
-                    target="_blank"
-                    rel="noreferrer"
+                    href="#"
                     className="text-xs link-arrow"
                   >
-                    Read paper <span className="arrow">&rarr;</span>
+                    Read article <span className="arrow">&rarr;</span>
                   </a>
                 </div>
               </GlowCard>
@@ -157,4 +155,4 @@ function Research() {
   );
 }
 
-export default Research;
+export default Writing;

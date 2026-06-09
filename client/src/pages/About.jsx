@@ -1,24 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import ScrollReveal from '../components/ScrollReveal';
+import SectionNumber from '../components/SectionNumber';
+import CountUp from '../components/CountUp';
+import GlowCard from '../components/GlowCard';
+import { staggerContainer, fadeUp, slideFromRight } from '../utils/motion';
 
 function About() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5, ease: 'easeOut' }
-    }
-  };
-
   return (
     <div className="pb-24 selection:bg-accent selection:text-white">
       {/* SECTION 01 // HERO */}
@@ -86,38 +74,31 @@ function About() {
         </div>
 
         {/* Stats horizontal columns at bottom of hero */}
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 border-t border-hairline pt-12">
+        <motion.div
+          className="max-w-[1200px] mx-auto px-6 lg:px-12 border-t border-hairline pt-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer(0.1)}
+        >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center font-mono">
-            <div>
-              <div className="text-3xl font-bold text-ink">
-                3.96<span className="text-accent font-bold">+</span>
-              </div>
-              <div className="text-[10px] text-mute uppercase mt-1">years experience</div>
-              <div className="text-[9px] text-mute/50 font-sans mt-0.5">Dean's honors list</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-ink">
-                50<span className="text-accent font-bold">%</span>
-              </div>
-              <div className="text-[10px] text-mute uppercase mt-1">latency reduction</div>
-              <div className="text-[9px] text-mute/50 font-sans mt-0.5">via Redis/RabbitMQ</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-ink">
-                96.9<span className="text-accent font-bold">%</span>
-              </div>
-              <div className="text-[10px] text-mute uppercase mt-1">Macro-F1 score</div>
-              <div className="text-[9px] text-mute/50 font-sans mt-0.5">Dermatological AI</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-ink">
-                60<span className="text-accent font-bold">%</span>
-              </div>
-              <div className="text-[10px] text-mute uppercase mt-1">Docker image cut</div>
-              <div className="text-[9px] text-mute/50 font-sans mt-0.5">optimized layers</div>
-            </div>
+            {[
+              { end: 3.96, suffix: '+', label: 'B.Sc. CGPA', sub: "Dean's honors list", decimals: 2 },
+              { end: 50, suffix: '%', label: 'latency reduction', sub: 'via Redis/RabbitMQ' },
+              { end: 96.9, suffix: '%', label: 'Macro-F1 score', sub: 'Dermatological AI', decimals: 1 },
+              { end: 60, suffix: '%', label: 'Docker image cut', sub: 'optimized layers' },
+            ].map((stat, i) => (
+              <motion.div key={i} variants={fadeUp}>
+                <div className="text-3xl font-bold text-ink">
+                  <CountUp end={stat.end} decimals={stat.decimals || 0} />
+                  <span className="text-accent font-bold">{stat.suffix}</span>
+                </div>
+                <div className="text-[10px] text-mute uppercase mt-1">{stat.label}</div>
+                <div className="text-[9px] text-mute/50 font-sans mt-0.5">{stat.sub}</div>
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* MAIN CONTAINER */}
@@ -125,16 +106,14 @@ function About() {
 
         {/* SECTION 02 // STORY */}
         <section className="mb-32 relative">
-          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            02
-          </div>
-          
-          <div className="mb-8 text-left">
-            <span className="font-mono text-mute text-xs block mb-2">// section.story</span>
-            <h2 className="text-3xl font-bold tracking-tight text-ink mb-6">My Story</h2>
-          </div>
+          <SectionNumber number="02" align="right" />
 
-          <div className="text-left space-y-6 max-w-[800px] text-sm leading-relaxed text-body font-sans">
+          <ScrollReveal className="mb-8 text-left relative z-10">
+            <span className="section-label">// section.story</span>
+            <h2 className="text-3xl font-bold tracking-tight text-ink mb-6">My Story</h2>
+          </ScrollReveal>
+
+          <ScrollReveal className="text-left space-y-6 max-w-[800px] text-sm leading-relaxed text-body font-sans relative z-10">
             <p>
               I am a <strong className="text-ink font-mono font-bold">Systems-focused Software Engineer</strong> and <strong className="text-ink font-mono font-bold">AI Researcher</strong>. I help teams resolve microservice bottleneck issues, optimize database caches, and integrate verified AI models into production environments.
             </p>
@@ -144,12 +123,12 @@ function About() {
             <p>
               My research focus is on medical AI and local retrieval algorithms. In my published paper, <span className="italic text-ink font-mono">ESkinNetBD</span>, I built and evaluated dual-attention CNN classifiers for dermatology. That research reinforced my belief in clinical transparency, leading me to integrate explainability systems such as Grad-CAM to explain neural decisions.
             </p>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* SECTION // TECH STACK */}
-        <section className="mb-32">
-          <div className="border border-hairline-strong p-8 bg-surface-soft/20 text-left">
+        <ScrollReveal as="section" className="mb-32">
+          <div className="border border-hairline-strong p-8 bg-surface-soft/20 text-left glow-card card-brackets">
             <span className="font-mono text-mute text-xs block mb-3">// system.stack</span>
             <h3 className="text-lg font-bold text-ink mb-6">Technical Arsenal</h3>
             <div className="flex flex-wrap gap-2 text-xs text-accent">
@@ -160,20 +139,24 @@ function About() {
               ))}
             </div>
           </div>
-        </section>
+        </ScrollReveal>
 
         {/* SECTION 03 // HOW I THINK */}
         <section className="mb-32 relative">
-          <div className="absolute left-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            03
-          </div>
-          
-          <div className="mb-12 text-left z-10 relative">
-            <span className="font-mono text-mute text-xs block mb-2">// section.principles</span>
-            <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">How I Think About Work</h2>
-          </div>
+          <SectionNumber number="03" align="left" />
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <ScrollReveal className="mb-12 text-left z-10 relative">
+            <span className="section-label">// section.principles</span>
+            <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">How I Think About Work</h2>
+          </ScrollReveal>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            variants={staggerContainer(0.1)}
+          >
             {[
               {
                 title: 'Systems over features',
@@ -242,36 +225,35 @@ function About() {
                 )
               }
             ].map((principle, i) => (
-              <div key={i} className="styled-card p-6 flex flex-col justify-between min-h-[260px]">
-                {principle.icon}
-                <div>
-                  <h3 className="font-bold text-ink text-sm mb-3">{principle.title}</h3>
-                  <p className="text-body text-xs leading-relaxed font-sans">{principle.desc}</p>
-                </div>
-              </div>
+              <motion.div key={i} variants={fadeUp}>
+                <GlowCard className="styled-card styled-card-hover card-brackets p-6 flex flex-col justify-between min-h-[260px]">
+                  {principle.icon}
+                  <div>
+                    <h3 className="font-bold text-ink text-sm mb-3">{principle.title}</h3>
+                    <p className="text-body text-xs leading-relaxed font-sans">{principle.desc}</p>
+                  </div>
+                </GlowCard>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* SECTION 04 // CAREER COMMITS */}
         <section className="mb-32 relative">
-          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
-            04
-          </div>
-          
-          <div className="mb-12 text-left">
-            <span className="font-mono text-mute text-xs block mb-2">// section.career</span>
+          <SectionNumber number="04" align="right" />
+
+          <ScrollReveal className="mb-12 text-left relative z-10">
+            <span className="section-label">// section.career</span>
             <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Career Commits</h2>
             <p className="text-sm text-body max-w-[700px] leading-relaxed">
               A version-controlled log of my software engineering commits, education, and community involvement.
             </p>
-          </div>
+          </ScrollReveal>
 
-          {/* Timeline commits matching codedgar git commit/diff list */}
-          <div className="space-y-12">
+          <div className="space-y-12 relative z-10">
             
             {/* Commit 01 */}
-            <div className="relative border-l border-hairline-strong pl-8 pb-4">
+            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={slideFromRight}>
               {/* Timeline dot */}
               <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-accent bg-canvas" />
               
@@ -292,10 +274,10 @@ function About() {
                 <div className="diff-add">+ Dockerized multi-stage container optimization (size cut 60%)</div>
                 <div className="diff-mod">~ Dual-LLM API calling schemas &amp; response orchestrations</div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Commit 02 */}
-            <div className="relative border-l border-hairline-strong pl-8 pb-4">
+            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
               {/* Timeline dot */}
               <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
               
@@ -313,10 +295,10 @@ function About() {
                 <div className="diff-add">+ Coursework: Distributed Systems, Artificial Intelligence, Databases</div>
                 <div className="diff-mod">~ Academic research paper on dual-attention dermatological CNNs</div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Commit 03 */}
-            <div className="relative border-l border-hairline-strong pl-8 pb-4">
+            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
               {/* Timeline dot */}
               <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
               
@@ -333,10 +315,10 @@ function About() {
                 <div className="diff-add">+ Foundations of Linear Algebra, Multivariable Calculus, Real Analysis</div>
                 <div className="diff-mod">~ Transitioned to Applied Computer Science and Software Engineering</div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Commit 04 */}
-            <div className="relative border-l border-hairline-strong pl-8 pb-4">
+            <ScrollReveal className="relative border-l border-hairline-strong pl-8 pb-4" variants={fadeUp}>
               {/* Timeline dot */}
               <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 border-2 border-hairline-strong bg-canvas" />
               
@@ -354,7 +336,7 @@ function About() {
                 <div className="diff-add">+ Structured operational logs &amp; donor database spreadsheets</div>
                 <div className="diff-mod">~ Mentored junior volunteers in project delivery execution</div>
               </div>
-            </div>
+            </ScrollReveal>
 
           </div>
         </section>

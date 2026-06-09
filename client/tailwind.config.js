@@ -1,4 +1,12 @@
-/** @type {import('tailwindcss').Config} */
+const withOpacity = (rgbVar, fallbackVar) => {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${rgbVar}), ${opacityValue})`;
+    }
+    return `var(${fallbackVar})`;
+  };
+};
+
 export default {
   content: [
     "./index.html",
@@ -7,28 +15,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "var(--text-primary)",
-        'on-primary': "var(--bg-primary)",
-        ink: "var(--text-primary)",
-        'ink-deep': "var(--text-primary-deep)",
-        charcoal: "var(--text-primary)",
-        body: "var(--text-secondary)",
-        mute: "var(--text-tertiary)",
-        stone: "var(--text-tertiary)",
-        ash: "var(--text-tertiary)",
-        canvas: "var(--bg-primary)",
-        'surface-soft': "var(--bg-tertiary)",
-        'surface-card': "var(--card-bg)",
-        'surface-dark': "var(--bg-secondary)",
-        'surface-dark-elevated': "var(--card-bg-elevated)",
-        hairline: "var(--border)",
-        'hairline-strong': "var(--border-strong)",
-        'on-dark': "var(--bg-primary)",
-        'on-dark-mute': "var(--text-tertiary)",
-        accent: "var(--action-primary)",
-        'accent-hover': "var(--action-hover)",
-        'accent-active': "var(--action-active)",
-        'accent-signal': "var(--accent-signal)",
+        primary: withOpacity("--text-primary-rgb", "--text-primary"),
+        'on-primary': withOpacity("--bg-primary-rgb", "--bg-primary"),
+        ink: withOpacity("--text-primary-rgb", "--text-primary"),
+        'ink-deep': withOpacity("--text-primary-deep-rgb", "--text-primary-deep"),
+        charcoal: withOpacity("--text-primary-rgb", "--text-primary"),
+        body: withOpacity("--text-secondary-rgb", "--text-secondary"),
+        mute: withOpacity("--text-tertiary-rgb", "--text-tertiary"),
+        stone: withOpacity("--text-tertiary-rgb", "--text-tertiary"),
+        ash: withOpacity("--text-tertiary-rgb", "--text-tertiary"),
+        canvas: withOpacity("--bg-primary-rgb", "--bg-primary"),
+        'surface-soft': withOpacity("--bg-tertiary-rgb", "--bg-tertiary"),
+        'surface-card': withOpacity("--card-bg-rgb", "--card-bg"),
+        'surface-dark': withOpacity("--bg-secondary-rgb", "--bg-secondary"),
+        'surface-dark-elevated': withOpacity("--card-bg-elevated-rgb", "--card-bg-elevated"),
+        hairline: withOpacity("--border-rgb", "--border"),
+        'hairline-strong': withOpacity("--border-strong-rgb", "--border-strong"),
+        'on-dark': withOpacity("--bg-primary-rgb", "--bg-primary"),
+        'on-dark-mute': withOpacity("--text-tertiary-rgb", "--text-tertiary"),
+        accent: withOpacity("--action-primary-rgb", "--action-primary"),
+        'accent-hover': withOpacity("--action-hover-rgb", "--action-hover"),
+        'accent-active': withOpacity("--action-active-rgb", "--action-active"),
+        'accent-signal': withOpacity("--accent-signal-rgb", "--accent-signal"),
         warning: "#ffb020",
         'warning-hover': "#e09400",
         'warning-active': "#c27d00",
