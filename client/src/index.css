@@ -3,90 +3,90 @@
 @tailwind utilities;
 
 :root {
-  /* Default Cream Light Theme */
-  --bg-primary: #f4f4f4;
-  --bg-secondary: #191818;
-  --bg-tertiary: #ebdccf;
+  /* Cream Light Theme - Retro Classic Codedgar */
+  --bg-primary: #fdfcfc;
+  --bg-secondary: #201d1d;
+  --bg-tertiary: #f5f3ef;
   --card-bg: #ffffff;
-  --card-bg-elevated: #ebdccf;
-  --text-primary: #191818;
+  --card-bg-elevated: #f5f3ef;
+  --text-primary: #201d1d;
   --text-primary-deep: #000000;
-  --text-secondary: rgba(25, 24, 24, 0.75);
-  --text-tertiary: rgba(25, 24, 24, 0.5);
-  --action-primary: #1b5def;
-  --action-hover: #4a7ff7;
-  --action-active: #0c42be;
-  --accent-signal: #e25327;
-  --border: rgba(25, 24, 24, 0.1);
-  --border-strong: rgba(25, 24, 24, 0.25);
-  --grid-line: rgba(25, 24, 24, 0.03);
+  --text-secondary: #4a4545;
+  --text-tertiary: #8f8585;
+  --action-primary: #0055ff;
+  --action-hover: #0044cc;
+  --action-active: #0033aa;
+  --accent-signal: #ef4444;
+  --border: rgba(32, 29, 29, 0.08);
+  --border-strong: rgba(32, 29, 29, 0.18);
+  --grid-line: rgba(32, 29, 29, 0.03);
 }
 
 [data-theme="dark"] {
-  /* Dark Tech Theme */
-  --bg-primary: #0a0b0d;
-  --bg-secondary: #e2e4e9;
-  --bg-tertiary: #121318;
-  --card-bg: #1a1d24;
-  --card-bg-elevated: #282c37;
-  --text-primary: #e2e4e9;
+  /* Deep Dark Theme - Sleek Console */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #141414;
+  --card-bg: #111111;
+  --card-bg-elevated: #1a1a1a;
+  --text-primary: #e5e5e5;
   --text-primary-deep: #ffffff;
-  --text-secondary: rgba(226, 228, 233, 0.75);
-  --text-tertiary: rgba(226, 228, 233, 0.5);
-  --action-primary: #00f2fe;
-  --action-hover: #00c6ff;
-  --action-active: #00a8e8;
-  --accent-signal: #ffb020;
-  --border: rgba(226, 228, 233, 0.08);
-  --border-strong: rgba(226, 228, 233, 0.25);
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #666666;
+  --action-primary: #38bdf8;
+  --action-hover: #0ea5e9;
+  --action-active: #0284c7;
+  --accent-signal: #f43f5e;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
   --grid-line: rgba(255, 255, 255, 0.03);
 }
 
 [data-theme="matrix"] {
   /* Cyber Matrix Theme */
-  --bg-primary: #020202;
-  --bg-secondary: #00ff00;
-  --bg-tertiary: #041404;
-  --card-bg: #060a06;
-  --card-bg-elevated: #0f1c0f;
-  --text-primary: #00ff00;
-  --text-primary-deep: #77ff77;
-  --text-secondary: rgba(0, 255, 0, 0.75);
-  --text-tertiary: rgba(0, 255, 0, 0.45);
-  --action-primary: #00ff00;
-  --action-hover: #55ff55;
-  --action-active: #00aa00;
+  --bg-primary: #020602;
+  --bg-secondary: #00FF66;
+  --bg-tertiary: #041204;
+  --card-bg: #030803;
+  --card-bg-elevated: #081A08;
+  --text-primary: #00FF66;
+  --text-primary-deep: #33FF99;
+  --text-secondary: rgba(0, 255, 102, 0.75);
+  --text-tertiary: rgba(0, 255, 102, 0.45);
+  --action-primary: #00FF66;
+  --action-hover: #33FF99;
+  --action-active: #00CC52;
   --accent-signal: #ffffff;
-  --border: rgba(0, 255, 0, 0.15);
-  --border-strong: rgba(0, 255, 0, 0.35);
-  --grid-line: rgba(0, 255, 0, 0.04);
+  --border: rgba(0, 255, 102, 0.15);
+  --border-strong: rgba(0, 255, 102, 0.35);
+  --grid-line: rgba(0, 255, 102, 0.04);
 }
 
 @layer base {
   body {
-    @apply bg-canvas text-body font-sans antialiased transition-colors duration-300;
+    @apply bg-canvas text-body font-mono antialiased transition-colors duration-300;
   }
   h1, h2, h3, h4 {
-    @apply font-display text-ink;
+    @apply font-mono text-ink;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-surface-dark text-canvas text-button-md rounded-sm px-[20px] py-[4px] h-[36px] flex items-center justify-center hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-mono font-bold border border-hairline;
+    @apply bg-accent text-white rounded-none px-[24px] py-[10px] flex items-center justify-center hover:opacity-90 active:scale-[0.98] transition-all duration-200 font-mono font-bold border border-transparent shadow-sm;
   }
   .btn-secondary {
-    @apply bg-canvas text-ink border border-hairline-strong text-button-md rounded-sm px-[20px] py-[4px] flex items-center justify-center hover:bg-surface-soft hover:border-accent hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-mono;
+    @apply bg-transparent text-ink border border-hairline-strong rounded-none px-[24px] py-[10px] flex items-center justify-center hover:bg-surface-soft hover:border-ink active:scale-[0.98] transition-all duration-200 font-mono font-bold;
   }
   .section-container {
-    @apply max-w-[960px] mx-auto py-section border-t border-hairline px-6 lg:px-0;
+    @apply max-w-[1200px] mx-auto py-20 px-6 lg:px-12;
   }
   .link-inline {
-    @apply text-accent hover:text-ink transition-colors duration-200 font-mono relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-[1px] after:bg-current after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:after:origin-left after:transition-transform after:duration-300;
+    @apply text-accent hover:underline transition-all duration-200 font-mono font-bold;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar matching retro theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -96,34 +96,68 @@
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-strong);
-  border-radius: 4px;
+  border-radius: 0px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--action-primary);
 }
 
-/* Tech Grid Backdrop */
+/* Tech Grid Backdrop (Dotted pattern) */
 .tech-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 0);
 }
 
-.glow-card {
-  position: relative;
-  transition: all 0.3s ease;
+/* Codedgar browser window mockup container styling */
+.browser-mockup {
+  @apply border border-hairline-strong bg-canvas rounded-none shadow-md overflow-hidden flex flex-col;
 }
-.glow-card::after {
+.browser-header {
+  @apply h-8 bg-surface-soft border-b border-hairline-strong px-3 flex items-center justify-between select-none;
+}
+.browser-dots {
+  @apply flex space-x-1.5;
+}
+.browser-dot {
+  @apply w-2.5 h-2.5 rounded-full bg-hairline-strong opacity-40;
+}
+.browser-address {
+  @apply text-[9px] text-mute px-4 py-0.5 bg-canvas border border-hairline-strong truncate max-w-[280px] w-full text-center mx-auto rounded-sm;
+}
+
+/* Diff commit block style for career log */
+.diff-block {
+  @apply bg-surface-soft border border-hairline-strong font-mono p-5 text-xs space-y-1.5 rounded-none shadow-sm;
+}
+.diff-add {
+  @apply text-accent font-semibold;
+}
+.diff-mod {
+  @apply text-accent-hover font-semibold;
+}
+.diff-del {
+  @apply text-accent-signal font-semibold;
+}
+
+/* Card base styles */
+.styled-card {
+  @apply border border-hairline-strong p-8 bg-surface-card rounded-none transition-all duration-300 relative;
+}
+.styled-card-hover {
+  @apply hover:border-accent hover:-translate-y-1 hover:shadow-md;
+}
+
+/* Decorative corner marks */
+.corner-decor {
+  @apply absolute w-1.5 h-1.5 border-accent pointer-events-none;
+}
+
+/* Nav Link Underline Active Indicator */
+.nav-link-active {
+  @apply relative;
+}
+.nav-link-active::after {
   content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(90deg, var(--action-primary), var(--accent-signal));
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  @apply absolute bottom-[-4px] left-0 w-full h-[2px] bg-accent-signal;
 }
-.glow-card:hover::after {
-  opacity: 0.3;
-}
+

@@ -28,6 +28,7 @@ export default {
         accent: "var(--action-primary)",
         'accent-hover': "var(--action-hover)",
         'accent-active': "var(--action-active)",
+        'accent-signal': "var(--accent-signal)",
         warning: "#ffb020",
         'warning-hover': "#e09400",
         'warning-active': "#c27d00",
@@ -38,8 +39,8 @@ export default {
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'sans-serif'],
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        display: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         'display-xl': ['38px', { lineHeight: '1.5', fontWeight: '700' }],

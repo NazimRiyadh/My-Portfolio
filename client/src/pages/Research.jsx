@@ -2,130 +2,117 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 function Research() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
+  const articles = [
+    {
+      title: 'ESkinNetBD: Dual-Attention EfficientNet for Transparent Skin Disease Diagnosis',
+      date: 'Dec 2024',
+      area: 'Computer Vision',
+      status: 'Published',
+      desc: 'Architected a CNN framework using EfficientNetB2 and Convolutional Block Attention Module (CBAM) to classify dermatological conditions across six categories using the SkinDisNet Bangladeshi dataset. Mitigated dataset imbalances through focal loss and label smoothing.',
+      tags: ['Medical AI', 'Computer Vision', 'PyTorch', 'Grad-CAM'],
+      contributions: [
+        'EfficientNetB2 backbone with CBAM dual-attention extraction',
+        'Balanced training via focal loss & label smoothing augmentations',
+        'Attained a 96.9% macro-F1 score on localized validation sets',
+        'Grad-CAM/Grad-CAM++ explainability maps for clinical transparency'
+      ]
+    },
+    {
+      title: 'Chlorophyll Detection via CalCOFI Oceanic Data Analysis',
+      date: 'Oct 2024',
+      area: 'Machine Learning',
+      status: 'Published',
+      desc: 'Designed a regression analysis pipeline to predict ocean chlorophyll levels. Evaluated baseline classifiers, using Optuna to tune hyperparameter spaces for a Random Forest Regressor.',
+      tags: ['Environmental AI', 'Machine Learning', 'Data Science', 'Optuna'],
+      contributions: [
+        'Outperformed 10 alternative baseline regression classifiers',
+        'Conducted Optuna hyperparameter sweeps for Random Forest Regressor',
+        'Achieved verified R² score of 0.7889 for ocean metrics tracking',
+        'Identified key sea surface temperature correlation weights'
+      ]
     }
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' }
-    }
-  };
+  ];
 
   return (
-    <div className="section-container">
-      <motion.div 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-12 text-left"
-      >
-        <span className="font-mono text-accent text-xs tracking-wider uppercase mb-2 block">// academic.notebook</span>
-        <h1 className="font-display text-[44px] text-white font-bold tracking-tight mb-4">Research</h1>
-        <p className="text-body-md text-body max-w-[600px] leading-relaxed font-sans">
-          Applied AI research papers detailing model architectures, performance, and computer vision methodologies.
-        </p>
-      </motion.div>
-
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-12"
-      >
-        {/* Paper 1 */}
-        <motion.div 
-          variants={itemVariants}
-          className="border border-hairline bg-surface-soft p-8 rounded-sm glow-card relative overflow-hidden"
-        >
-          <div className="flex justify-between items-start flex-wrap gap-4 mb-4">
-            <h2 className="font-display text-[22px] font-bold text-white leading-snug max-w-[650px]">
-              ESkinNetBD: Dual-Attention EfficientNet for Transparent Skin Disease Diagnosis
-            </h2>
-            <span className="font-mono text-[10px] text-accent bg-card-bg px-2.5 py-1 border border-hairline rounded-sm">
-              Computer Vision
-            </span>
+    <div className="pb-24 selection:bg-accent selection:text-white">
+      {/* SECTION 01 // HERO */}
+      <section className="relative w-full pt-16 pb-20 border-b border-hairline-strong bg-canvas overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 text-left">
+          <span className="font-mono text-mute text-[11px] block mb-2 select-none">
+            // page.articles
+          </span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-6 leading-none">
+            Writing
+          </h1>
+          <p className="text-sm md:text-base text-body max-w-[600px] mb-8 leading-relaxed font-sans">
+            I write about systems architecture, data science pipelines, and applied artificial intelligence research. Most of it is just documenting the structural patterns I build in the lab.
+          </p>
+          <div className="border border-accent-signal/30 text-accent-signal bg-accent-signal/5 px-4 py-1.5 font-mono text-[10px] uppercase font-bold tracking-wider inline-flex items-center space-x-2">
+            <span className="w-2 h-2 rounded-full bg-accent-signal animate-pulse" />
+            <span>Limited Availability · Q2 2026</span>
           </div>
-          <div className="text-caption-md text-mute font-mono mb-6 pb-4 border-b border-hairline">
-            Status: Published | Area: Medical AI
+        </div>
+      </section>
+
+      {/* MAIN CONTAINER */}
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-12 mt-20">
+
+        {/* SECTION 02 // RESEARCH ARTICLES LIST */}
+        <section className="relative">
+          <div className="absolute right-0 top-0 font-bold text-mute/5 text-8xl md:text-[12rem] select-none pointer-events-none leading-none">
+            02
           </div>
           
-          <div className="mb-6 font-sans">
-            <div className="font-mono text-xs text-white mb-2 uppercase font-bold tracking-wider">Abstract:</div>
-            <p className="text-body-md text-body leading-relaxed">
-              Constructed a CNN framework using EfficientNetB2 and CBAM to classify dermatological conditions across six categories using the SkinDisNet Bangladeshi dataset. Mitigated dataset imbalances through focal loss, label smoothing, and augmentation, attaining a 96.9% macro-F1 score on evaluation sets.
-            </p>
+          <div className="mb-12 text-left">
+            <span className="font-mono text-mute text-xs block mb-2">// section.articles</span>
+            <h2 className="text-3xl font-bold tracking-tight text-ink mb-4">Latest Research</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-canvas/50 p-6 rounded-sm border border-hairline font-sans">
-            <div>
-              <div className="font-mono text-xs text-white mb-3 flex items-center uppercase font-bold tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent mr-2 inline-block"></span>
-                Methodology
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {articles.map((post, i) => (
+              <div key={i} className="border border-hairline-strong bg-surface-soft/10 p-8 flex flex-col justify-between min-h-[460px] relative">
+                
+                <div>
+                  <div className="flex justify-between items-center text-[10px] font-mono mb-4">
+                    <span className="text-accent bg-accent/5 px-2.5 py-0.5 border border-hairline-strong font-bold">{post.date}</span>
+                    <span className="text-mute uppercase tracking-wider">{post.area}</span>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold text-ink mb-3 leading-snug">{post.title}</h3>
+                  <div className="text-[11px] text-accent font-mono mb-4">&gt; Status: {post.status}</div>
+                  <p className="text-xs text-body leading-relaxed mb-6 font-sans">{post.desc}</p>
+                  
+                  {/* Plus Bullet Points for methodology/results */}
+                  <div className="bg-surface-soft/40 p-4 border border-hairline-strong font-mono text-xs rounded-none mb-6">
+                    <div className="text-ink font-bold mb-2 uppercase tracking-wide text-[10px]">// research_highlights:</div>
+                    <ul className="space-y-1.5 text-body text-[11px]">
+                      {post.contributions.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="text-accent font-bold mr-2 select-none">+</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-hairline flex flex-col gap-4">
+                  <div className="flex flex-wrap gap-1">
+                    {post.tags.map((tag, idx) => (
+                      <span key={idx} className="text-[8px] text-mute bg-surface-soft px-2 py-0.5 border border-hairline">{tag}</span>
+                    ))}
+                  </div>
+                  <a href="https://github.com/NazimRiyadh" target="_blank" rel="noreferrer" className="text-xs text-accent hover:underline font-bold inline-block">
+                    Read paper &rarr;
+                  </a>
+                </div>
+
               </div>
-              <ul className="space-y-2 text-caption-md text-body">
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> EfficientNetB2 backbone</li>
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> CBAM dual-attention</li>
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> Focal loss & Label smoothing</li>
-              </ul>
-            </div>
-            <div>
-              <div className="font-mono text-xs text-white mb-3 flex items-center uppercase font-bold tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent mr-2 inline-block"></span>
-                Explainability
-              </div>
-              <ul className="space-y-2 text-caption-md text-body">
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> Grad-CAM integration</li>
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> Grad-CAM++ for visual explanations</li>
-                <li><span className="text-accent mr-2 font-mono font-bold">[o]</span> Enhanced clinical transparency</li>
-              </ul>
-            </div>
+            ))}
           </div>
-        </motion.div>
+        </section>
 
-        {/* Paper 2 */}
-        <motion.div 
-          variants={itemVariants}
-          className="border border-hairline bg-surface-soft p-8 rounded-sm glow-card relative overflow-hidden"
-        >
-          <div className="flex justify-between items-start flex-wrap gap-4 mb-4">
-            <h2 className="font-display text-[22px] font-bold text-white leading-snug max-w-[650px]">
-              Chlorophyll Detection via CalCOFI Data: Marine Ecosystem Insights
-            </h2>
-            <span className="font-mono text-[10px] text-accent bg-card-bg px-2.5 py-1 border border-hairline rounded-sm">
-              Environmental AI
-            </span>
-          </div>
-          <div className="text-caption-md text-mute font-mono mb-6 pb-4 border-b border-hairline">
-            Status: Published | Area: Machine Learning
-          </div>
-          
-          <div className="mb-6 font-sans">
-            <div className="font-mono text-xs text-white mb-2 uppercase font-bold tracking-wider">Abstract:</div>
-            <p className="text-body-md text-body leading-relaxed">
-              Architected a predictive model for chlorophyll quantification utilizing an optimized Random Forest Regressor. Executed advanced feature engineering and Optuna-driven tuning, outperforming ten baseline models in predictive precision for oceanic monitoring.
-            </p>
-          </div>
-
-          <div className="bg-canvas/50 p-6 rounded-sm border border-hairline font-sans">
-            <div className="font-mono text-xs text-white mb-3 flex items-center uppercase font-bold tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent mr-2 inline-block"></span>
-              Key Results
-            </div>
-            <ul className="space-y-2 text-caption-md text-body">
-              <li><span className="text-accent mr-2 font-mono font-bold">[+]</span> Verified R² of 0.7889 achieved.</li>
-              <li><span className="text-accent mr-2 font-mono font-bold">[+]</span> Outperformed 10 alternative baseline models.</li>
-            </ul>
-          </div>
-        </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }
