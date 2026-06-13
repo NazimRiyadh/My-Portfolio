@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import ScrollReveal from "../components/ScrollReveal";
 import SectionNumber from "../components/SectionNumber";
 import GlowCard from "../components/GlowCard";
-import { staggerContainer, fadeUp, slideFromLeft, slideFromRight } from "../utils/motion";
+import {
+  staggerContainer,
+  fadeUp,
+  slideFromLeft,
+  slideFromRight,
+} from "../utils/motion";
 
 function Projects() {
   const featured = [
@@ -24,7 +29,7 @@ function Projects() {
       title: "BigBazar",
       year: "2025",
       role: "Full-Stack Developer",
-      stack: ["React", "Express", "Redis", "Pinecone", "Gemini AI"],
+      stack: ["React", "Express", "Redis", "Stripe", "Pinecone", "Gemini AI"],
       desc: "A modern e-commerce platform integrated with semantic vector spaces to serve contextual product recommendations dynamically.",
       address: "system://projects.bigbazar",
       contributions: [
@@ -94,9 +99,9 @@ function Projects() {
               Work
             </h1>
             <p className="text-sm md:text-base text-body max-w-[600px] mb-8 leading-relaxed font-sans">
-              These are systems where I got to solve real engineering bottlenecks.
-              The interesting part is always the context behind structural choices
-              and the trade-offs that came with them.
+              These are systems where I got to solve real engineering
+              bottlenecks. The interesting part is always the context behind
+              structural choices and the trade-offs that came with them.
             </p>
             <div className="border border-accent-signal/30 text-accent-signal bg-accent-signal/5 px-4 py-1.5 font-mono text-[10px] uppercase font-bold tracking-wider inline-flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-accent-signal animate-pulse" />
@@ -127,7 +132,9 @@ function Projects() {
               >
                 <GlowCard className="border border-hairline-strong bg-canvas rounded-none p-8 flex flex-col md:flex-row gap-8 items-stretch relative card-brackets">
                   {/* Visual panel — alternates side on desktop */}
-                  <div className={`w-full md:w-2/5 browser-mockup min-h-[220px] ${i % 2 === 1 ? 'md:order-2' : ''}`}>
+                  <div
+                    className={`w-full md:w-2/5 browser-mockup min-h-[220px] ${i % 2 === 1 ? "md:order-2" : ""}`}
+                  >
                     <div className="browser-header">
                       <div className="browser-dots">
                         <div className="browser-dot" />
@@ -152,7 +159,9 @@ function Projects() {
                     </div>
                   </div>
 
-                  <div className={`w-full md:w-3/5 flex flex-col justify-between text-left ${i % 2 === 1 ? 'md:order-1' : ''}`}>
+                  <div
+                    className={`w-full md:w-3/5 flex flex-col justify-between text-left ${i % 2 === 1 ? "md:order-1" : ""}`}
+                  >
                     <div>
                       <div className="flex items-center space-x-3 mb-2 text-[10px] font-mono">
                         <span className="text-accent bg-accent/5 px-2 py-0.5 border border-hairline font-bold">

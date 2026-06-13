@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
   const location = useLocation();
   const [scrollPercent, setScrollPercent] = useState(0);
-  const [currentTime, setCurrentTime] = useState('');
+  const [currentTime, setCurrentTime] = useState("");
   const [trackIndex, setTrackIndex] = useState(0);
 
   const tracks = [
-    'Omen - The Prodigy',
-    'Half-Life OST - Kelly Bailey',
-    'Doom Gate - Bobby Prince',
-    'Resonance - Home'
+    "Warrior - Imagine Dragons",
+    "Unstoppable - Sia",
+    "Hall of fame - The Script",
   ];
 
   // Track scroll percentage
   useEffect(() => {
     const handleScroll = () => {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const scrollPos = window.scrollY;
       if (docHeight > 0) {
         setScrollPercent(Math.round((scrollPos / docHeight) * 100));
@@ -25,8 +25,8 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
         setScrollPercent(0);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Track current time
@@ -50,23 +50,35 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
 
   const getPathLabel = () => {
     switch (location.pathname) {
-      case '/': return '// home.init';
-      case '/projects': return '// work.projects';
-      case '/research': return '// academic.research';
-      case '/writing': return '// tech.writing';
-      case '/about': return '// human.entity';
-      default: return '// system';
+      case "/":
+        return "// home.init";
+      case "/projects":
+        return "// work.projects";
+      case "/research":
+        return "// academic.research";
+      case "/writing":
+        return "// tech.writing";
+      case "/about":
+        return "// human.entity";
+      default:
+        return "// system";
     }
   };
 
   const getModeLabel = () => {
     switch (location.pathname) {
-      case '/': return 'VISITOR';
-      case '/projects': return 'EXPLORING';
-      case '/research': return 'RESEARCHING';
-      case '/writing': return 'READING';
-      case '/about': return 'INSPECTING';
-      default: return 'GUEST';
+      case "/":
+        return "VISITOR";
+      case "/projects":
+        return "EXPLORING";
+      case "/research":
+        return "RESEARCHING";
+      case "/writing":
+        return "READING";
+      case "/about":
+        return "INSPECTING";
+      default:
+        return "GUEST";
     }
   };
 
@@ -79,35 +91,49 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
           [MODE: {getModeLabel()}]
         </span>
         <span className="text-hairline-strong hidden sm:inline">|</span>
-        <span className="text-white hover:text-accent cursor-pointer transition-colors hidden sm:inline" onClick={onToggleSettings}>
-          theme: <strong className="text-accent uppercase font-bold">{theme}</strong>
+        <span
+          className="text-white hover:text-accent cursor-pointer transition-colors hidden sm:inline"
+          onClick={onToggleSettings}
+        >
+          theme:{" "}
+          <strong className="text-accent uppercase font-bold">{theme}</strong>
         </span>
         <span className="text-hairline-strong">|</span>
-        <span className="text-accent-hover font-semibold">{getPathLabel()}</span>
+        <span className="text-accent-hover font-semibold">
+          {getPathLabel()}
+        </span>
       </div>
 
       {/* Simulated Media Player */}
       <div className="hidden md:flex items-center space-x-2.5 text-mute truncate max-w-[280px] text-[10px] bg-surface-soft px-3 py-1 border border-hairline border-dashed">
         <span className="text-accent text-[11px]">♪</span>
         <span className="text-accent text-[10px]">▶</span>
-        <span className="truncate tracking-wide text-ink">{tracks[trackIndex]}</span>
+        <span className="truncate tracking-wide text-ink">
+          {tracks[trackIndex]}
+        </span>
       </div>
 
       <div className="flex items-center space-x-5">
         {/* Help shortcuts */}
-        <button 
-          onClick={onToggleShortcuts} 
+        <button
+          onClick={onToggleShortcuts}
           className="hover:text-accent transition-colors flex items-center text-[10px]"
         >
-          <kbd className="bg-surface-soft px-1.5 py-0.5 rounded-none border border-hairline mr-1.5 text-white/90 font-sans shadow-sm font-bold">?</kbd> HELP
+          <kbd className="bg-surface-soft px-1.5 py-0.5 rounded-none border border-hairline mr-1.5 text-white/90 font-sans shadow-sm font-bold">
+            ?
+          </kbd>{" "}
+          HELP
         </button>
 
         {/* Settings */}
-        <button 
-          onClick={onToggleSettings} 
+        <button
+          onClick={onToggleSettings}
           className="hover:text-accent transition-colors flex items-center text-[10px]"
         >
-          <kbd className="bg-surface-soft px-1.5 py-0.5 rounded-none border border-hairline mr-1.5 text-white/90 font-sans shadow-sm font-bold">S</kbd> SETTINGS
+          <kbd className="bg-surface-soft px-1.5 py-0.5 rounded-none border border-hairline mr-1.5 text-white/90 font-sans shadow-sm font-bold">
+            S
+          </kbd>{" "}
+          SETTINGS
         </button>
 
         <span className="text-hairline-strong">|</span>
@@ -116,9 +142,9 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
         <div className="flex items-center space-x-2.5 text-[10px]">
           <span>SCROLL: {scrollPercent}%</span>
           <div className="w-[60px] h-[5px] bg-surface-soft rounded-none overflow-hidden border border-hairline shadow-inner">
-            <div 
-              className="h-full bg-accent transition-all duration-150" 
-              style={{ width: `${scrollPercent}%` }} 
+            <div
+              className="h-full bg-accent transition-all duration-150"
+              style={{ width: `${scrollPercent}%` }}
             />
           </div>
         </div>
@@ -126,7 +152,9 @@ function StatusBar({ onToggleShortcuts, onToggleSettings, theme }) {
         <span className="text-hairline-strong">|</span>
 
         {/* Realtime clock */}
-        <span className="text-white font-medium tracking-wider tabular-nums">{currentTime}</span>
+        <span className="text-white font-medium tracking-wider tabular-nums">
+          {currentTime}
+        </span>
       </div>
     </div>
   );
